@@ -1,25 +1,58 @@
 # twoxtwogame
 
-TODO(b/319068130): Add a description for your new project, explain what is
-being released here, etc... Additional, the following sections are normally
-expected for all releases. Feel free to add additional sections if appropriate
-for your project.
+A LaTeX package for visualizing 2x2 normal-form games. The package builds upon
+PGF/TikZ to produce beautiful vector graphic visualizations indented for use in
+scientific publications. Commands include producing graphical representations
+of 2x2 games, plotting the equilibria in 2x2 games, and game embeddings for 2x2
+games.
+
+## Example Functionality
+
+### Equilibria
+
+![Examples of Equilibria in 2x2 Games](images/equilibria.png)
+
+### Equilibrium-invariant game embeddings
+
+![Example space of game embeddings](images/embeddings.png)
+
+###  Ordinal graphs
+
+![Table of ordinal game graphs](images/ordinal_graphs.png)
+
 
 ## Installation
 
-Write instructions for how the user should install your code. The instructions
-should ideally be valid when copy-pasted. You can combine this with the Usage
-section if there's no separate installation step.
+Simply include the `twoxtwogame.sty` file in your working directory.
 
 ## Usage
 
-Write example usage of your code. The instructions should ideally be valid when
-copy-pasted, and will be used by your technical reviewer to verify that your
-package functions correctly.
+Include in the preamble the `twoxtwogame` package.
+
+```tex
+\usepackage{twoxtwogame}
+```
+
+In the main document, utilize the commands that the package provides.
+
+```tex
+\cyclebrgraph~Matching Pennies has a single mixed Nash equilibrium, while
+\coordinationbrgraph~two pure Nash equilibria and a single mixed Nash
+equilibrium.
+```
+
+For further information, please refer to the included package documentation:
+`twoxtwogame_doc.pdf` which can be built from `twoxtwogame_doc.tex`.
 
 ## Citing this work
 
-Add citation details here, usually a pastable BibTeX snippet.
+Please cite the following announcement paper when using this package.
+
+```tex
+@misc{marris2024_twoxtwogame,
+    TODO(b/319068130): Add when paper is released.
+}
+```
 
 ## License and disclaimer
 

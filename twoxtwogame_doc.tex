@@ -1,0 +1,866 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{twoxtwogame}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{cprotect}
+
+% Optionally uncomment this code to cache figure generation.
+% \usepackage{tikz}
+% \usetikzlibrary{external}
+% \tikzexternalize[prefix=cache/,up to date check=md5]
+
+\usepackage[authoryear, sort&compress, round]{natbib}
+\usepackage{booktabs,array}
+\bibliographystyle{abbrvnat}
+
+\title{twoxtwogame Package Documentation}
+\author{Luke Marris}
+\date{May 2023}
+
+% Make a tabular column suitable for verbatim code input.
+\makeatletter
+    \newcolumntype{V}[1]{>{\@minipagetrue}p{#1}<{\vspace{-0.8\baselineskip}}}
+\makeatother
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+2×2 normal-form games are widely studied in game theory and economics. They are the simplest type of normal-form game, consisting of only two players, each with two strategies. This package provides tools for representing, visualizing, tabulating, and naming such games and their equilibrium solutions in \LaTeX.
+
+
+\section{Functionality}
+
+2×2 normal-form games are parameterized with 8 variables which describe the payoffs received by each player. Therefore, the majority of functions in the \verb!twoxtwogame! package have 8 mandatory arguments, \verb!{a}{b}{c}...{h}!, corresponding to these variables. The first four arguments, \verb!{a}{b}{c}{d}!, are payoffs of the row player in row-wise order, and the last four arguments, \verb!{e}{f}{g}{h}!, are the payoffs of the column player also in row-wise order. These payoffs, $G$, are often represented in a tabular form, where each player has strategies A and B (Table~\ref{tab:2x2_payoffs_parameterization}). The joint strategy distribution, $\sigma$, is parameterized with four arguments, \verb!{a}{b}{c}{d}! (Table~\ref{tab:2x2_joint_parameterization}). Some commands have additional optional keyword arguments.
+
+\begin{table}[h!]
+    \centering
+    \begin{subtable}[t]{0.4\linewidth}
+        \centering
+        \payoffstable[label=$G$]{a}{b}{c}{d}{e}{f}{g}{h}
+        \caption{Payoffs arguments.}
+        \label{tab:2x2_payoffs_parameterization}
+    \end{subtable}
+    ~~~~
+    \begin{subtable}[t]{0.4\linewidth}
+        \centering
+        \jointtable[label=$\sigma$]{a}{b}{c}{d}
+        \caption{Joint arguments.}
+        \label{tab:2x2_joint_parameterization}
+    \end{subtable}
+    \caption{2×2 normal-form game function arguments.}
+    \label{tab:2x2_parameterization}
+\end{table}
+
+\subsection{Payoffs Representations}
+
+Traditionally payoffs can be represented as tables containing their raw payoff values and labeled actions. Additionally, payoffs can be represented graphically as either \emph{best-response graphs} or \emph{partial ordinal graphs}. These representations are compact enough to be inserted inline into text.
+
+\subsubsection{Best-Response Graphs}
+
+The best-response dynamics of 2×2 games are easily visualized. 2×2 games have been categorized according to these dynamics \citep{borm1987_classification_of_2x2_games,marris2023_equilibrium_invariant_embedding_2x2_arxiv}. \cite{marris2023_equilibrium_invariant_embedding_2x2_arxiv} proposed the best-response graphical representation used in this package.
+
+The graph contains up to four directed edges: two for each player. The row player has up to two vertical directed edges which point from each of the column player's two strategies to the row player's corresponding best-response strategy (BR). Similarly, the column player has up to two horizontal edges which correspond to the best-response to each of the row player's two strategies. Self-loop edges are omitted from the graph and indicate indifference between two strategies. For example, when \verb!a! = \verb!c!. The graph can be placed inline using \verb!\brgraph{a}...{h}!, for example: Matching Pennies~\brgraph{1}{-1}{-1}{1}{-1}{1}{1}{-1}, Prisoner's Dilemma~\brgraph{1}{1}{0}{0}{1}{0}{1}{0}, and Null~\brgraph{0}{0}{0}{0}{0}{0}{0}{0}. The graphs inherit color from its surrounding text. The graphs are customizable with optional keyword arguments (Table~\ref{tab:brgraph}).
+
+\begin{table}[t]
+    \centering
+    \footnotesize
+    \begin{tabular}{lll}
+        Keyword Argument & Description & Default \\ \hline
+        point offset & The distance of the points from the center & 0.38em \\
+        point color & Color of points & . \\
+        point radius & Radius of points (filled circles) & 0.06em \\
+        row player color & Color of row player's BR edges & . \\
+        column player color & Color of column player's BR edges & . \\
+        arrow width & Arrow head width & 0.25em \\
+        arrow length & Arrow head length & 0.35em \\
+        line width & Arrow line width & 0.05em \\
+    \end{tabular}
+
+    \vspace{1.0em}
+
+    \begin{tabular}{V{0.8\linewidth}l}
+        Command & Output \\ \hline
+\begin{verbatim}
+\brgraph{1}{-1}{-1}{1}{-1}{1}{1}{-1}
+\end{verbatim}
+        & \brgraph{1}{-1}{-1}{1}{-1}{1}{1}{-1} \\
+\begin{verbatim}
+\brgraph[
+    point color=green
+]{1}{-1}{-1}{1}{-1}{1}{1}{-1}
+\end{verbatim}
+        & \brgraph[point color=green]{1}{-1}{-1}{1}{-1}{1}{1}{-1} \\
+\begin{verbatim}
+\brgraph[
+    row player color=red,
+    column player color=blue
+]{1}{-1}{-1}{1}{-1}{1}{1}{-1}
+\end{verbatim}
+        & \brgraph[row player color=red,column player color=blue]{1}{-1}{-1}{1}{-1}{1}{1}{-1}
+    \end{tabular}
+    \cprotect\caption{Parameterization, default values, and example usage of the \verb!\brgraph[...]{a}...{h}! command, which produces inline best-response graphs. Default period indicates inheritance from outer scope.}
+    \label{tab:brgraph}
+\end{table}
+
+The graphs belong to 15 equivalence classes which have been named \citep{marris2023_equilibrium_invariant_embedding_2x2_arxiv}. Names for any payoff can be determined using \verb!\brname{a}...{h}! (examples in Table~\ref{tab:brname}). It is common to have the equivalent class name appear along with the best-response graph. Canonical graphs for each equivalence class are given in Table~\ref{tab:namebrgraph}, and can be inserted using the commands \verb!\<name>brgraph!. This command also accepts the same optional keyword arguments as \verb!\brgraph[...]{a}...{h}!.
+
+\begin{table}[t]
+    \centering
+    \footnotesize
+    \begin{tabular}{ll}
+        Example & Output \\ \hline
+        \verb!\brname{1}{2}{3}{4}{5}{6}{7}{8}! & \brname{1}{2}{3}{4}{5}{6}{7}{8} \\
+        \verb!\brname{1.1}{-1}{3.7}{4}{-1.2}{3}{1}{5}! & \brname{1.1}{-1}{3.7}{4}{-1.2}{3}{9}{5} \\
+        \verb!\brname{1}{-1}{-1}{1}{1}{-1}{-1}{1}! & \brname{1}{-1}{-1}{1}{1}{-1}{-1}{1} \\
+        \verb!\brname{-1}{1}{1}{-1}{-1}{1}{1}{-1}! & \brname{-1}{1}{1}{-1}{-1}{1}{1}{-1} \\
+        \verb!\brname{0}{0}{0}{0}{0}{0}{0}{1}! & \brname{0}{0}{0}{0}{0}{0}{0}{1} \\
+    \end{tabular}
+    \cprotect\caption{Example usage of the \verb!\brname{a}...{h}! command, which produces best-response equivalence class names. Many payoffs map to the same equivalence class.}
+    \label{tab:brname}
+\end{table}
+
+\begin{table}[t]
+    \centering
+    \footnotesize
+    \begin{tabular}{ll|ll|ll}
+        Graph Command & & Graph Command & & Graph Command & \\ \hline
+        \verb!\dominantbrgraph! & \dominantbrgraph & \verb!\safetybrgraph! & \safetybrgraph & \verb!\heistbrgraph! & \heistbrgraph \\
+        \verb!\coordinationbrgraph! & \coordinationbrgraph & \verb!\aidosbrgraph! & \aidosbrgraph & \verb!\ignorancebrgraph! & \ignorancebrgraph \\
+        \verb!\cyclebrgraph! & \cyclebrgraph & \verb!\picnicnbrgraph! & \picnicbrgraph & \verb!\horseplaybrgraph! & \horseplaybrgraph \\
+        \verb!\samaritanbrgraph! & \samaritanbrgraph & \verb!\daredevilbrgraph! & \daredevilbrgraph & \verb!\dressbrgraph! & \dressbrgraph \\
+        \verb!\hazardbrgraph! & \hazardbrgraph & \verb!\fossickbrgraph! & \fossickbrgraph & \verb!\nullbrgraph! & \nullbrgraph
+    \end{tabular}
+    \cprotect\caption{Example usage of the \verb!\<name>brgraph[...]{a}...{h}! commands, which produce the canonical graphs for the 15 equivalence classes proposed by \cite{borm1987_classification_of_2x2_games} and \cite{marris2023_equilibrium_invariant_embedding_2x2_arxiv}. These commands have the same key word arguments as \verb!\brgraph!.}
+    \label{tab:namebrgraph}
+\end{table}
+
+
+\subsubsection{Ordinal Graphs and Partial Ordinal Graphs}
+
+It is also possible to visualize payoff orderings in graphical form using the \verb!\ordgraph[<keywords>]{a}...{h}! command. Ordinal games have a simple four edge directed graph representation for each player. The ``periodic table'' of ordinal games is shown in Table~\ref{tab:ordinal_games}. The command is also able to handle partial ordinal graphs. In the literature, these are categorized as triple, double, high, low, middle and basic ties. The representation consists of two directed graphs, one for each player. The row player's graph is black and shifted to the bottom left, by default. The column player's graph is gray and shifted to the top right, by default. Each graph then represents the partial ordering of the payoffs of each pure joint strategy. The ordinal representation of some common games is shown in Table~\ref{tab:ord_examples}. Examples of partially ordinal games are given in Table~\ref{tab:partial_ord_examples}.
+
+\begin{table}[t!]
+    \centering
+    \footnotesize
+    \begin{tabular}{lll}
+        Keyword Argument & Description & Default \\ \hline
+        point offset & The distance of the points from the center & 0.38em \\
+        row player x offset & Additional horizontal offset applied to row player & -0.1e, \\
+        row player y offset & Additional vertical offset applied to row player & -0.5em \\
+        column player x offset & Additional horizontal offset applied to column player & 0.1em \\
+        column player y offset & Additional vertical offset applied to column player & 0.05em \\
+        point color & Color of points & . \\
+        point radius & Radius of points & 0.04em \\
+        row player color & Color of row player's BR edges & . \\
+        column player color & Color of column player's BR edges & gray \\
+        arrow width & Arrow head width & 0.25em \\
+        arrow length & Arrow head length & 0.35em \\
+        line width & Arrow line width & 0.04em \\
+    \end{tabular}
+
+    \vspace{1.0em}
+
+    \begin{tabular}{V{0.8\linewidth}l}
+        Command & Output \\ \hline
+\begin{verbatim}
+\ordgraph{1}{-1}{-1}{1}{-1}{1}{1}{-1}
+\end{verbatim}
+        & \ordgraph{1}{-1}{-1}{1}{-1}{1}{1}{-1} \\
+\begin{verbatim}
+\ordgraph[
+    row player color=red,
+    column player color=blue
+]{1}{-1}{-1}{1}{-1}{1}{1}{-1}
+\end{verbatim}
+        & \ordgraph[row player color=red,column player color=blue]{1}{-1}{-1}{1}{-1}{1}{1}{-1}
+    \end{tabular}
+
+    \cprotect\caption{Parameterization, default values, and example usage of the \verb!\ordgraph[...]{a}...{h}! command, which produces inline ordinal graphs. Default period indicates inheritance from outer scope.}
+    \label{tab:ordgraph}
+\end{table}
+
+\begin{table}[t]
+    \centering
+    \footnotesize
+    \begingroup
+    \renewcommand{\arraystretch}{1.3}
+    \addtolength{\tabcolsep}{-3pt}
+    \begin{tabular}{r|cccccccccccc}
+        Chicken \ordgraph{2}{3}{1}{4}{0}{0}{0}{0} &
+        \ordgraph{2}{3}{1}{4}{3}{4}{1}{2} &
+        \ordgraph{2}{3}{1}{4}{2}{4}{1}{3} &
+        \ordgraph{2}{3}{1}{4}{1}{4}{2}{3} &
+        \ordgraph{2}{3}{1}{4}{1}{4}{3}{2} &
+        \ordgraph{2}{3}{1}{4}{2}{4}{3}{1} &
+        \ordgraph{2}{3}{1}{4}{3}{4}{2}{1} &
+        \ordgraph{2}{3}{1}{4}{4}{3}{2}{1} &
+        \ordgraph{2}{3}{1}{4}{4}{2}{3}{1} &
+        \ordgraph{2}{3}{1}{4}{4}{1}{3}{2} &
+        \ordgraph{2}{3}{1}{4}{3}{1}{2}{4} &
+        \ordgraph{2}{3}{1}{4}{4}{2}{1}{3} &
+        \ordgraph{2}{3}{1}{4}{4}{3}{1}{2} \\
+        Battle \ordgraph{3}{2}{1}{4}{0}{0}{0}{0} &
+        \ordgraph{3}{2}{1}{4}{3}{4}{1}{2} &
+        \ordgraph{3}{2}{1}{4}{2}{4}{1}{3} &
+        \ordgraph{3}{2}{1}{4}{1}{4}{2}{3} &
+        \ordgraph{3}{2}{1}{4}{1}{4}{3}{2} &
+        \ordgraph{3}{2}{1}{4}{2}{4}{3}{1} &
+        \ordgraph{3}{2}{1}{4}{3}{4}{2}{1} &
+        \ordgraph{3}{2}{1}{4}{4}{3}{2}{1} &
+        \ordgraph{3}{2}{1}{4}{4}{2}{3}{1} &
+        \ordgraph{3}{2}{1}{4}{4}{1}{3}{2} &
+        \ordgraph{3}{2}{1}{4}{3}{1}{2}{4} &
+        \ordgraph{3}{2}{1}{4}{4}{2}{1}{3} &
+        \ordgraph{3}{2}{1}{4}{4}{3}{1}{2} \\
+        Hero \ordgraph{3}{1}{2}{4}{0}{0}{0}{0} &
+        \ordgraph{3}{1}{2}{4}{3}{4}{1}{2} &
+        \ordgraph{3}{1}{2}{4}{2}{4}{1}{3} &
+        \ordgraph{3}{1}{2}{4}{1}{4}{2}{3} &
+        \ordgraph{3}{1}{2}{4}{1}{4}{3}{2} &
+        \ordgraph{3}{1}{2}{4}{2}{4}{3}{1} &
+        \ordgraph{3}{1}{2}{4}{3}{4}{2}{1} &
+        \ordgraph{3}{1}{2}{4}{4}{3}{2}{1} &
+        \ordgraph{3}{1}{2}{4}{4}{2}{3}{1} &
+        \ordgraph{3}{1}{2}{4}{4}{1}{3}{2} &
+        \ordgraph{3}{1}{2}{4}{3}{1}{2}{4} &
+        \ordgraph{3}{1}{2}{4}{4}{2}{1}{3} &
+        \ordgraph{3}{1}{2}{4}{4}{3}{1}{2} \\
+        Compromise \ordgraph{2}{1}{3}{4}{0}{0}{0}{0} &
+        \ordgraph{2}{1}{3}{4}{3}{4}{1}{2} &
+        \ordgraph{2}{1}{3}{4}{2}{4}{1}{3} &
+        \ordgraph{2}{1}{3}{4}{1}{4}{2}{3} &
+        \ordgraph{2}{1}{3}{4}{1}{4}{3}{2} &
+        \ordgraph{2}{1}{3}{4}{2}{4}{3}{1} &
+        \ordgraph{2}{1}{3}{4}{3}{4}{2}{1} &
+        \ordgraph{2}{1}{3}{4}{4}{3}{2}{1} &
+        \ordgraph{2}{1}{3}{4}{4}{2}{3}{1} &
+        \ordgraph{2}{1}{3}{4}{4}{1}{3}{2} &
+        \ordgraph{2}{1}{3}{4}{3}{1}{2}{4} &
+        \ordgraph{2}{1}{3}{4}{4}{2}{1}{3} &
+        \ordgraph{2}{1}{3}{4}{4}{3}{1}{2} \\
+        Deadlock \ordgraph{1}{2}{3}{4}{0}{0}{0}{0} &
+        \ordgraph{1}{2}{3}{4}{3}{4}{1}{2} &
+        \ordgraph{1}{2}{3}{4}{2}{4}{1}{3} &
+        \ordgraph{1}{2}{3}{4}{1}{4}{2}{3} &
+        \ordgraph{1}{2}{3}{4}{1}{4}{3}{2} &
+        \ordgraph{1}{2}{3}{4}{2}{4}{3}{1} &
+        \ordgraph{1}{2}{3}{4}{3}{4}{2}{1} &
+        \ordgraph{1}{2}{3}{4}{4}{3}{2}{1} &
+        \ordgraph{1}{2}{3}{4}{4}{2}{3}{1} &
+        \ordgraph{1}{2}{3}{4}{4}{1}{3}{2} &
+        \ordgraph{1}{2}{3}{4}{3}{1}{2}{4} &
+        \ordgraph{1}{2}{3}{4}{4}{2}{1}{3} &
+        \ordgraph{1}{2}{3}{4}{4}{3}{1}{2} \\
+        Dilemma \ordgraph{1}{3}{2}{4}{0}{0}{0}{0} &
+        \ordgraph{1}{3}{2}{4}{3}{4}{1}{2} &
+        \ordgraph{1}{3}{2}{4}{2}{4}{1}{3} &
+        \ordgraph{1}{3}{2}{4}{1}{4}{2}{3} &
+        \ordgraph{1}{3}{2}{4}{1}{4}{3}{2} &
+        \ordgraph{1}{3}{2}{4}{2}{4}{3}{1} &
+        \ordgraph{1}{3}{2}{4}{3}{4}{2}{1} &
+        \ordgraph{1}{3}{2}{4}{4}{3}{2}{1} &
+        \ordgraph{1}{3}{2}{4}{4}{2}{3}{1} &
+        \ordgraph{1}{3}{2}{4}{4}{1}{3}{2} &
+        \ordgraph{1}{3}{2}{4}{3}{1}{2}{4} &
+        \ordgraph{1}{3}{2}{4}{4}{2}{1}{3} &
+        \ordgraph{1}{3}{2}{4}{4}{3}{1}{2} \\
+        Hunt \ordgraph{1}{4}{2}{3}{0}{0}{0}{0} &
+        \ordgraph{1}{4}{2}{3}{3}{4}{1}{2} &
+        \ordgraph{1}{4}{2}{3}{2}{4}{1}{3} &
+        \ordgraph{1}{4}{2}{3}{1}{4}{2}{3} &
+        \ordgraph{1}{4}{2}{3}{1}{4}{3}{2} &
+        \ordgraph{1}{4}{2}{3}{2}{4}{3}{1} &
+        \ordgraph{1}{4}{2}{3}{3}{4}{2}{1} &
+        \ordgraph{1}{4}{2}{3}{4}{3}{2}{1} &
+        \ordgraph{1}{4}{2}{3}{4}{2}{3}{1} &
+        \ordgraph{1}{4}{2}{3}{4}{1}{3}{2} &
+        \ordgraph{1}{4}{2}{3}{3}{1}{2}{4} &
+        \ordgraph{1}{4}{2}{3}{4}{2}{1}{3} &
+        \ordgraph{1}{4}{2}{3}{4}{3}{1}{2} \\
+        Assurance \ordgraph{1}{4}{3}{2}{0}{0}{0}{0} &
+        \ordgraph{1}{4}{3}{2}{3}{4}{1}{2} &
+        \ordgraph{1}{4}{3}{2}{2}{4}{1}{3} &
+        \ordgraph{1}{4}{3}{2}{1}{4}{2}{3} &
+        \ordgraph{1}{4}{3}{2}{1}{4}{3}{2} &
+        \ordgraph{1}{4}{3}{2}{2}{4}{3}{1} &
+        \ordgraph{1}{4}{3}{2}{3}{4}{2}{1} &
+        \ordgraph{1}{4}{3}{2}{4}{3}{2}{1} &
+        \ordgraph{1}{4}{3}{2}{4}{2}{3}{1} &
+        \ordgraph{1}{4}{3}{2}{4}{1}{3}{2} &
+        \ordgraph{1}{4}{3}{2}{3}{1}{2}{4} &
+        \ordgraph{1}{4}{3}{2}{4}{2}{1}{3} &
+        \ordgraph{1}{4}{3}{2}{4}{3}{1}{2} \\
+        Coordination \ordgraph{2}{4}{3}{1}{0}{0}{0}{0} &
+        \ordgraph{2}{4}{3}{1}{3}{4}{1}{2} &
+        \ordgraph{2}{4}{3}{1}{2}{4}{1}{3} &
+        \ordgraph{2}{4}{3}{1}{1}{4}{2}{3} &
+        \ordgraph{2}{4}{3}{1}{1}{4}{3}{2} &
+        \ordgraph{2}{4}{3}{1}{2}{4}{3}{1} &
+        \ordgraph{2}{4}{3}{1}{3}{4}{2}{1} &
+        \ordgraph{2}{4}{3}{1}{4}{3}{2}{1} &
+        \ordgraph{2}{4}{3}{1}{4}{2}{3}{1} &
+        \ordgraph{2}{4}{3}{1}{4}{1}{3}{2} &
+        \ordgraph{2}{4}{3}{1}{3}{1}{2}{4} &
+        \ordgraph{2}{4}{3}{1}{4}{2}{1}{3} &
+        \ordgraph{2}{4}{3}{1}{4}{3}{1}{2} \\
+        Peace \ordgraph{3}{4}{2}{1}{0}{0}{0}{0} &
+        \ordgraph{3}{4}{2}{1}{3}{4}{1}{2} &
+        \ordgraph{3}{4}{2}{1}{2}{4}{1}{3} &
+        \ordgraph{3}{4}{2}{1}{1}{4}{2}{3} &
+        \ordgraph{3}{4}{2}{1}{1}{4}{3}{2} &
+        \ordgraph{3}{4}{2}{1}{2}{4}{3}{1} &
+        \ordgraph{3}{4}{2}{1}{3}{4}{2}{1} &
+        \ordgraph{3}{4}{2}{1}{4}{3}{2}{1} &
+        \ordgraph{3}{4}{2}{1}{4}{2}{3}{1} &
+        \ordgraph{3}{4}{2}{1}{4}{1}{3}{2} &
+        \ordgraph{3}{4}{2}{1}{3}{1}{2}{4} &
+        \ordgraph{3}{4}{2}{1}{4}{2}{1}{3} &
+        \ordgraph{3}{4}{2}{1}{4}{3}{1}{2} \\
+        Harmony \ordgraph{3}{4}{1}{2}{0}{0}{0}{0} &
+        \ordgraph{3}{4}{1}{2}{3}{4}{1}{2} &
+        \ordgraph{3}{4}{1}{2}{2}{4}{1}{3} &
+        \ordgraph{3}{4}{1}{2}{1}{4}{2}{3} &
+        \ordgraph{3}{4}{1}{2}{1}{4}{3}{2} &
+        \ordgraph{3}{4}{1}{2}{2}{4}{3}{1} &
+        \ordgraph{3}{4}{1}{2}{3}{4}{2}{1} &
+        \ordgraph{3}{4}{1}{2}{4}{3}{2}{1} &
+        \ordgraph{3}{4}{1}{2}{4}{2}{3}{1} &
+        \ordgraph{3}{4}{1}{2}{4}{1}{3}{2} &
+        \ordgraph{3}{4}{1}{2}{3}{1}{2}{4} &
+        \ordgraph{3}{4}{1}{2}{4}{2}{1}{3} &
+        \ordgraph{3}{4}{1}{2}{4}{3}{1}{2} \\
+        Concord \ordgraph{2}{4}{1}{3}{0}{0}{0}{0} &
+        \ordgraph{2}{4}{1}{3}{3}{4}{1}{2} &
+        \ordgraph{2}{4}{1}{3}{2}{4}{1}{3} &
+        \ordgraph{2}{4}{1}{3}{1}{4}{2}{3} &
+        \ordgraph{2}{4}{1}{3}{1}{4}{3}{2} &
+        \ordgraph{2}{4}{1}{3}{2}{4}{3}{1} &
+        \ordgraph{2}{4}{1}{3}{3}{4}{2}{1} &
+        \ordgraph{2}{4}{1}{3}{4}{3}{2}{1} &
+        \ordgraph{2}{4}{1}{3}{4}{2}{3}{1} &
+        \ordgraph{2}{4}{1}{3}{4}{1}{3}{2} &
+        \ordgraph{2}{4}{1}{3}{3}{1}{2}{4} &
+        \ordgraph{2}{4}{1}{3}{4}{2}{1}{3} &
+        \ordgraph{2}{4}{1}{3}{4}{3}{1}{2} \\ \hline
+        &
+        \rotatebox[origin=tr]{90}{Concord \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{3}{4}{1}{2}} } &
+        \rotatebox[origin=tr]{90}{Harmony \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{2}{4}{1}{3}} } &
+        \rotatebox[origin=tr]{90}{Peace \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{1}{4}{2}{3}} } &
+        \rotatebox[origin=tr]{90}{Coordination \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{1}{4}{3}{2}} } &
+        \rotatebox[origin=tr]{90}{Assurance \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{2}{4}{3}{1}} } &
+        \rotatebox[origin=tr]{90}{Hunt \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{3}{4}{2}{1}} } &
+        \rotatebox[origin=tr]{90}{Dilemma \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{4}{3}{2}{1}} } &
+        \rotatebox[origin=tr]{90}{Deadlock \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{4}{2}{3}{1}} } &
+        \rotatebox[origin=tr]{90}{Compromise \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{4}{1}{3}{2}} } &
+        \rotatebox[origin=tr]{90}{Hero \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{3}{1}{2}{4}} } &
+        \rotatebox[origin=tr]{90}{Battle \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{4}{2}{1}{3}} } &
+        \rotatebox[origin=tr]{90}{Chicken \rotatebox[origin=c]{-90}{\ordgraph{0}{0}{0}{0}{4}{3}{1}{2}} }
+    \end{tabular}
+    \addtolength{\tabcolsep}{3pt}
+    \endgroup
+    \caption{Periodic table of ordinal games \citep{robinsonandgoforth2005_topology_of_2x2_games_book,goforth2005_periodic_table_of_games} with a naming scheme proposed by \cite{bruns2015_names_for_games}.}
+    \label{tab:ordinal_games}
+\end{table}
+
+\begin{table}[t!]
+    \centering
+    \begin{subtable}[t]{0.3\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{3}{0}{0}{2}{2}{0}{0}{3} & M & F \\ \hline
+            M & 3,2 & 0,0 \\
+            F & 0,0 & 2,3 \\
+        \end{tabular}
+        \caption{Battle of the Sexes}
+        \label{tab:ord_battle_of_the_sexes}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.3\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{2}{7}{0}{4}{2}{0}{7}{4} & C & D \\ \hline
+            C & 2,2 & 7,0 \\
+            D & 0,7 & 4,4 \\
+        \end{tabular}
+        \caption{Prisoner's Dilemma}
+        \label{tab:ord_prisoners_dillema}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.3\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{1}{-1}{-1}{1}{-1}{1}{1}{-1} & H & T \\ \hline
+            H & $+1$,$-1$ & $-1$,$+1$ \\
+            T & $-1$,$+1$ & $+1$,$-1$ \\
+        \end{tabular}
+        \caption{Matching Pennies}
+        \label{tab:ord_matching_pennies}
+    \end{subtable}
+    \caption{Ordinal and partial ordinal graphs for common normal-form games.}
+    \label{tab:ord_examples}
+\end{table}
+
+\begin{table}[t!]
+    \centering
+    \begin{subtable}[t]{0.22\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{1}{2}{3}{4}{2}{3}{1}{4} & A & B \\ \hline
+            A & 1,2 & 2,3 \\
+            B & 3,1 & 4,4 \\
+        \end{tabular}
+        \caption{Strict Tie}
+        \label{tab:strict_tie}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.22\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{2}{2}{2}{1}{1}{0}{1}{1} & A & B \\ \hline
+            A & 2,1 & 2,0 \\
+            B & 2,1 & 1,1 \\
+        \end{tabular}
+        \caption{Triple Tie}
+        \label{tab:triple_tie}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.22\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{1}{0}{1}{0}{1}{1}{0}{0} & A & B \\ \hline
+            A & 1,1 & 0,1 \\
+            B & 1,0 & 0,0 \\
+        \end{tabular}
+        \caption{Double Tie}
+        \label{tab:double_tie}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.22\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{1}{0}{0}{0}{0}{0}{0}{1} & A & B \\ \hline
+            A & 1,0 & 0,0 \\
+            B & 0,0 & 0,1 \\
+        \end{tabular}
+        \caption{Basic Tie}
+        \label{tab:basic_tie}
+    \end{subtable}
+
+    \begin{subtable}[t]{0.22\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{0}{0}{0}{0}{1}{1}{1}{1} & A & B \\ \hline
+            A & 0,1 & 0,1 \\
+            B & 0,1 & 0,1 \\
+        \end{tabular}
+        \caption{Zero Tie}
+        \label{tab:zero_tie}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.22\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{3}{3}{2}{1}{1}{3}{3}{2} & A & B \\ \hline
+            A & 3,1 & 3,3 \\
+            B & 2,3 & 1,2 \\
+        \end{tabular}
+        \caption{High Tie}
+        \label{tab:high_tie}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.22\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{1}{0}{0}{-1}{2}{-1}{1}{0} & A & B \\ \hline
+            A & $1$,0 & 0,$-1$ \\
+            B & 0,$1$ & $-1$,0 \\
+        \end{tabular}
+        \caption{Middle Tie}
+        \label{tab:middle_tie}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.22\linewidth}
+        \centering
+        \begin{tabular}{c|cc}
+            \ordgraph{2}{1}{0}{0}{0}{1}{2}{0} & A & B \\ \hline
+            A & 2,0 & 1,1 \\
+            B & 0,2 & 0,0 \\
+        \end{tabular}
+        \caption{Low Tie}
+        \label{tab:low_tie}
+    \end{subtable}
+    \caption{Examples of partial ordinal graphs for each of the possible ties.}
+    \label{tab:partial_ord_examples}
+\end{table}
+
+
+\subsubsection{Payoff Tables}
+
+This package also provides commands for specifying payoff tables. The  \verb!\smallpayoffstable[...]{a}...{h}! command produces inline payoff tables (Table~\ref{tab:smallpayoffstable}).
+
+While the \verb!\payoffstable[...]{a}...{h}! command produces full tabular payoff tables with strategy labels.
+
+
+For example, \verb!\smallpayoffstable{1}{+2}{9}{-4}{3}{2}{1}{0}! results in a small inline payoff table, \smallpayoffstable{1}{+2}{9}{-4}{3}{2}{1}{0}. It is also possible to modify the values with keyword arguments (Table~\ref{tab:smallpayoffstable}).
+
+\begin{table}[t!]
+    \centering
+    \footnotesize
+    \begin{tabular}{lll}
+        Keyword Argument & Description & Default \\ \hline
+        row player color & Color of row player's payoffs & . \\
+        column player color & Color of column player's payoffs & . \\
+        row player first strategy color & Color of row player's first strategies & \verb!\empty! \\
+        row player second strategy color & Color of row player's second strategies & \verb!\empty! \\
+        column player first strategy color & Color of column player's first strategies & \verb!\empty! \\
+        column player second strategy color & Color of column player's second strategies & \verb!\empty! \\
+    \end{tabular}
+
+    \vspace{1.0em}
+
+    \begin{tabular}{V{0.8\linewidth}l}
+        Example & Output \\ \hline
+\begin{verbatim}
+\smallpayoffstable{1}{2}{9}{-4}{3}{2}{1}{0}
+\end{verbatim}
+        & \smallpayoffstable{1}{2}{9}{-4}{3}{2}{1}{0} \\
+\begin{verbatim}
+\smallpayoffstable[
+    row player color=red,
+    column player color=blue
+]{1}{2}{9}{-4}{3}{2}{1}{0}
+\end{verbatim}
+        & \smallpayoffstable[row player color=red,column player color=blue]{1}{2}{9}{-4}{3}{2}{1}{0} \\
+\begin{verbatim}
+\smallpayoffstable[
+    row player first strategy color=red,
+    row player second strategy color=orange,
+    column player first strategy color=purple,
+    column player second strategy color=blue
+]{1}{2}{9}{-4}{3}{2}{1}{0}
+\end{verbatim}
+        & \smallpayoffstable[row player first strategy color=red,row player second strategy color=orange,column player first strategy color=purple,column player second strategy color=blue]{1}{2}{9}{-4}{3}{2}{1}{0} \\
+    \end{tabular}
+    \cprotect\caption{Parameterization, default values, and example usage of the \verb!\smallpayoffstable[...]{a}...{h}! command, which produces inline payoff tables. Default period indicates inheritance from outer scope.}
+    \label{tab:smallpayoffstable}
+\end{table}
+
+
+Larger payoff tables can be represented with the \verb!\payoffstable[...]{a}...{h}!, \verb!\brpayoffstable[...]{a}...{h}!, and \verb!\ordpayoffstable[...]{a}...{h}! commands. Examples are given in Table~\ref{fig:table_examples}.
+
+\begin{table}[t!]
+    \centering
+    \begin{subtable}[t]{0.32\linewidth}
+        \centering
+        \payoffstable[row player color=red, column player color=blue]{1}{+2}{9}{-4}{3}{2}{1}{0}
+        \cprotect\caption{\verb!\payoffstable!}
+        \label{fig:empty_table}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.32\linewidth}
+        \centering
+        \brpayoffstable[row player color=red, column player color=blue]{1}{+2}{9}{-4}{3}{2}{1}{0}
+        \cprotect\caption{\verb!\brpayoffstable!}
+        \label{fig:br_table}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.32\linewidth}
+        \centering
+        \ordpayoffstable[row player color=red, column player color=blue]{1}{+2}{9}{-4}{3}{2}{1}{0}
+        \cprotect\caption{\verb!\ordpayoffstable!}
+        \label{fig:ord_table}
+    \end{subtable} \hfill
+    \caption{Examples of the three table commands.}
+    \label{fig:table_examples}
+\end{table}
+
+
+\subsection{Distribution Representations}
+
+Distributions, including joint, marginal, and conditional distributions can be visualised using either small inline graphs, tables, or larger figures.
+
+
+\subsubsection{Inline Distribution Graphs}
+
+Inline graphs for joint, conditional, and marginal distributions can be produced using the commands in Table~\ref{tab:inline_dist_graphs}. All the commands take a joint distribution as arguments (Table~\ref{tab:2x2_joint_parameterization}). Optional arguments include \verb!color!, \verb!border color!, \verb!row player color!, and \verb!column player color!.
+
+\begin{table}[h!]
+    \footnotesize
+    \noindent\begin{tabular}{llr}
+        Command Signature & Example Command &  \\ \hline
+        \verb!\jointgraph[..]{a}..{d}! & \verb!\jointgraph{.4}{.3}{.1}{.2}! & \jointgraph{.4}{.3}{.1}{.2} \\
+        \verb!\rowcondgraph[..]{a}..{d}! & \verb!\rowcondgraph{.4}{.3}{.1}{.2}! & \rowcondgraph{.4}{.3}{.1}{.2} \\
+        \verb!\colcondgraph[..]{a}..{d}! & \verb!\colcondgraph{.4}{.3}{.1}{.2}! & \colcondgraph{.4}{.3}{.1}{.2} \\
+        \verb!\marginalgraph[..]{a}..{d}! & \verb!\marginalgraph{.4}{.3}{.1}{.2}! & \marginalgraph{.4}{.3}{.1}{.2} \\
+        \verb!\jmgraph[..]{a}..{d}! & \verb!\jmgraph{.4}{.3}{.1}{.2} ! & \jmgraph{.4}{.3}{.1}{.2}
+    \end{tabular}
+    \caption{Inline distribution graphs.}
+    \label{tab:inline_dist_graphs}
+\end{table}
+
+\subsubsection{Distribution Tables}
+
+Tables can also be easily defined for joint distributions (Figure~\ref{fig:joint_table_examples}). Optional arguments include \verb!label!, \verb!color!, \verb!border color!, \verb!row player color!, and \verb!column player color!.
+
+\begin{table}[h!]
+    \centering
+    \begin{subtable}[t]{0.3\linewidth}
+        \centering
+        \jgjointtable[row player color=red, column player color=blue]{0.1}{0.2}{0.3}{0.4}
+        \cprotect\caption{\verb!\jgjointtable!}
+        \label{fig:jg_joint_table}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.3\linewidth}
+        \centering
+        \rcgjointtable[row player color=red, column player color=blue]{0.1}{0.2}{0.3}{0.4}
+        \cprotect\caption{\verb!\rcgjointtable!}
+        \label{fig:rcg_joint_table}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.3\linewidth}
+        \centering
+        \ccgjointtable[row player color=red, column player color=blue]{0.1}{0.2}{0.3}{0.4}
+        \cprotect\caption{\verb!\ccgjointtable!}
+        \label{fig:ccg_joint_table}
+    \end{subtable} \hfill
+
+    \begin{subtable}[t]{0.3\linewidth}
+        \centering
+        \mgjointtable[row player color=red, column player color=blue]{0.1}{0.2}{0.3}{0.4}
+        \cprotect\caption{\verb!\mgjointtable!}
+        \label{fig:mg_joint_table}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.3\linewidth}
+        \centering
+        \jmgjointtable[row player color=red, column player color=blue]{0.1}{0.2}{0.3}{0.4}
+        \cprotect\caption{\verb!\jmgjointtable!}
+        \label{fig:jmg_joint_table}
+    \end{subtable} \hfill
+    \begin{subtable}[t]{0.3\linewidth}
+        \centering
+        \jointtable[row player color=red, column player color=blue]{0.1}{0.2}{0.3}{0.4}
+        \cprotect\caption{\verb!\jointtable!}
+        \label{fig:empty_joint_table}
+    \end{subtable}
+
+    \caption{Examples of joint distribution table commands. The naming convention is: ``jg'' for ``joint graph'', ``rcg'' for ``row conditional graph'', ``ccg'' for ``column conditional graph'', ``mg'' for ``marginal graph'', and ``jmg'' for ``joint-marginal graph''.}
+    \label{fig:joint_table_examples}
+\end{table}
+
+
+
+\subsubsection{Marginal Simplex}
+
+Marginals, $\sigma_r = [\sigma_r^A, \sigma_r^B]$ and $\sigma_c = [\sigma_c^A, \sigma_c^B]$, can be plotted in two dimensions and the product of two 1-simplices. Points, images, heatmaps, and quiver plots can be generated from data (Figure~\ref{fig:marginal_simplex}).
+
+\begin{figure}[t]
+    \centering
+    \footnotesize
+    \begin{subfigure}[t]{0.32\linewidth}
+        \marginalsimplex[width=\linewidth,points=doc_data/marginal_simplex/points.dat]
+        \caption{Points}
+        \label{fig:marginal_simplex_points}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.32\linewidth}
+        \marginalsimplex[width=\linewidth,heatmap=doc_data/marginal_simplex/heatmap.dat]
+        \caption{Heatmap}
+        \label{fig:marginal_simplex_heatmap}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.32\linewidth}
+        \marginalsimplex[width=\linewidth,quiver=doc_data/marginal_simplex/quiver.dat,quiver scale arrows=0.1]
+        \caption{Quiver}
+        \label{fig:marginal_simplex_quiver}
+    \end{subfigure}
+
+    \caption{Marginal Simplex Plots}
+    \label{fig:marginal_simplex}
+\end{figure}
+
+
+\subsubsection{Joint Simplex}
+
+The joint of a 2×2 normal-form game is described by four probabilities, $\{\sigma(\text{AA}),\allowbreak\sigma(\text{AB}),\allowbreak\sigma(\text{BA}),\allowbreak\sigma(\text{BB})\}$. Due to the constraint that $\sum_{a \in \mathcal{A}} \sigma(a) = 1$, there is redundancy in this parameterization. Therefore probability distributions (a 4-dimensional barycentric coordinate system) can be visualized on a 3-simplex in 3-dimensional Cartesian coordinates.
+
+A joint distribution is a point within this simplex, with pure joint strategies corresponding to the vertices of the simplex. Sets of points can also be visualized. In particular, convex polytope sets can be visualized by tracing the edges of the polytope. Games permit a convex polytope of (C)CE equilibria, and therefore these can be easily visualized. In fact, in two-strategy games, CEs and CCEs are equivalent. NEs are equilibria that are (C)CEs and also factorize, $\sigma(a_1,a_2)=\sigma_1(a_1)\sigma_2(a_2)$. In 2×2 normal-form games, NEs can be either points, lines, or in a degenerate case a manifold which stretches across all the vertices of the simplex. These polytopes can be visualized using the \verb!polytope[...]{a}...{h}! command.
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{1}{1}{0}{0}{1}{0}{1}{0}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{1}{1}{0}{0}{1}{0}{1}{0}~\brname{1}{1}{0}{0}{1}{0}{1}{0}}
+        \label{fig:simplex_dominant}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{0}{1}{1}{0}{0}{1}{1}{0}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{0}{1}{1}{0}{0}{1}{1}{0}~\brname{0}{1}{1}{0}{0}{1}{1}{0}}
+        \label{fig:simplex_coordination}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{1}{-1}{-1}{1}{-1}{1}{1}{-1}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{1}{-1}{-1}{1}{-1}{1}{1}{-1}~\brname{1}{-1}{-1}{1}{-1}{1}{1}{-1}}
+        \label{fig:simplex_cycle}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{1}{0}{0}{1}{1}{0}{1}{0}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{1}{0}{0}{1}{1}{0}{1}{0}~\brname{1}{0}{0}{1}{1}{0}{1}{0}}
+        \label{fig:simplex_samaritan}
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{+1}{-1}{-1}{+1}{0}{0}{+1}{-1}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{+1}{-1}{-1}{+1}{0}{0}{+1}{-1}~\brname{+1}{-1}{-1}{+1}{0}{0}{+1}{-1}}
+        \label{fig:simplex_hazard}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{+1}{-1}{-1}{+1}{+1}{-1}{0}{0}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{+1}{-1}{-1}{+1}{+1}{-1}{0}{0}~\brname{+1}{-1}{-1}{+1}{+1}{-1}{0}{0}}
+        \label{fig:simplex_safety}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{+1}{+1}{-1}{-1}{0}{0}{+1}{-1}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brname{+1}{+1}{-1}{-1}{0}{0}{+1}{-1}~\brgraph{+1}{+1}{-1}{-1}{0}{0}{+1}{-1}}
+        \label{fig:simplex_aidos}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{+1}{0}{-1}{0}{+1}{-1}{+1}{-1}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brname{+1}{0}{-1}{0}{+1}{-1}{+1}{-1}~\brgraph{+1}{0}{-1}{0}{+1}{-1}{+1}{-1}}
+        \label{fig:simplex_picnic}
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{0}{+1}{0}{-1}{0}{0}{+1}{-1}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{0}{+1}{0}{-1}{0}{0}{+1}{-1}~\brname{0}{+1}{0}{-1}{0}{0}{+1}{-1}}
+        \label{fig:simplex_daredevil}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{+1}{0}{-1}{0}{+1}{-1}{0}{0}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{+1}{0}{-1}{0}{+1}{-1}{0}{0}~\brname{+1}{0}{-1}{0}{+1}{-1}{0}{0}}
+        \label{fig:simplex_fossick}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{+1}{0}{-1}{0}{0}{0}{+1}{-1}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{+1}{0}{-1}{0}{0}{0}{+1}{-1}~\brname{+1}{0}{-1}{0}{0}{0}{+1}{-1}}
+        \label{fig:simplex_heist}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{+1}{+1}{-1}{-1}{0}{0}{0}{0}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brname{+1}{+1}{-1}{-1}{0}{0}{0}{0}~\brgraph{+1}{+1}{-1}{-1}{0}{0}{0}{0}}
+        \label{fig:simplex_ignoreance}
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{+1}{-1}{-1}{+1}{0}{0}{0}{0}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{+1}{-1}{-1}{+1}{0}{0}{0}{0}~\brname{+1}{-1}{-1}{+1}{0}{0}{0}{0}}
+        \label{fig:simplex_horseplay}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{+1}{0}{-1}{0}{0}{0}{0}{0}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{+1}{0}{-1}{0}{0}{0}{0}{0}~\brname{+1}{0}{-1}{0}{0}{0}{0}{0}}
+        \label{fig:simplex_dress}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.24\linewidth}
+        \polytope[width=\linewidth]{0}{0}{0}{0}{0}{0}{0}{0}
+        \vspace{-1.5em}
+        \caption{\footnotesize\brgraph{0}{0}{0}{0}{0}{0}{0}{0}~\brname{0}{0}{0}{0}{0}{0}{0}{0}}
+        \label{fig:simplex_zero}
+    \end{subfigure}\hfill
+    \hspace{0.24\linewidth}
+
+    \caption{Equilibrium polytopes of the canonical games introduced by \cite{marris2023_equilibrium_invariant_embedding_2x2_arxiv}. The black lines represent edges of the joint probability simplex. The solid purple lines represent the edges of the (C)CE polytope. The dashed blue lines represent a continuum of NE. Points with respective colours represent (C)CE and NE point solutions.}
+    \label{fig:polytopes}
+\end{figure}
+
+
+\subsection{Embeddings}
+
+The equilibrium-invariant embeddings introduced by \cite{marris2023_equilibrium_invariant_embedding_2x2_arxiv} can be visualized using the \verb!\embedding[...]! command.
+
+\begin{table}[t]
+    \centering
+    \footnotesize
+    \begin{tabular}{lll}
+        Keyword Argument & Description & Default \\ \hline
+        width & Width of plot & \verb!\linewidth! \\
+        image & File path to background image & empty \\
+        matrix & File path to background matrix data & empty \\
+        points & File path to background points data & empty \\
+        axis color & & black \\
+        partial trivial & & false \\
+        symmetric strategies & & false \\
+        symmetric players & & false \\\
+        no class boundaries & Suppress class boundaries & false\\
+        no equilibrium boundaries & Suppress equilibrium boundaries & false\\
+        no best-response graphs & Suppress false best-response graphs & false \\
+        best-response graph color & & black\\
+        best-response graph font size & & \verb!\scriptsize! \\
+        no best-response names & Suppress best-response names & false \\
+        best-response name orientation & & -90 \\
+        best-response name distance & & -0.1em \\
+        best-response name color & & black!70 \\
+        best-response name font size & & \verb!\tiny! \\
+        no axes labels & Suppress axes labels & false \\
+        no tick labels & Suppress tick labels & false \\
+    \end{tabular}
+    \cprotect\caption{\verb!embedding[...]! command parameterization.}
+    \label{tab:embedding_command_args}
+\end{table}
+
+\begin{figure}[t]
+    \embedding[no axes labels,no tick labels]
+    \caption{Embeddings plot.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.49\linewidth}
+        \embedding[matrix=doc_data/embedding/heatmap.dat,no axes labels,no tick labels,no best-response names]
+        \caption{Heatmap}
+    \end{subfigure}\hfill
+    \begin{subfigure}[t]{0.49\linewidth}
+        \embedding[points=doc_data/embedding/points.dat,no axes labels,no tick labels,no best-response names]
+        \caption{Points}
+    \end{subfigure}
+
+    \caption{Embedding plots with different backgrounds.}
+    \label{fig:my_label}
+\end{figure}
+
+
+\section{Tips and Tricks}
+
+\paragraph{Slow Builds or Out of Memory Errors}
+
+Some of the figures created by this package can take time to compile, and may slow down compile times for your project. Consider using the externalize command of TikZ/PFGplots to mitigate this issue:
+
+\begin{verbatim}
+\usepackage{tikz}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=cache/,up to date check=md5]
+\end{verbatim}
+
+This will sequentially build each each TikZ picture individually and cache it. Subsequent project builds will use the cache rather than rebuild the picture each time. When modifying commands, it may be necessary to clear the cache to regenerate the pictures. Some setups may require manually making the cache directory and adding a dummy file in that directory. This process may be slower on the first build run. If your build times out trying again may work (because it will reuse the pictures that were cached on the first run).
+
+
+\section{Citing this Package}
+
+If you use this package in your work, please consider citing it.
+
+\begin{verbatim}
+TODO(b/319068130): Complete this when paper is ready.
+\end{verbatim}
+
+\section{Acknowledgements}
+
+Thank you to Ian Gemp, Georgios Piliouras, and Siqi Liu for their helpful feedback.
+
+
+\bibliography{twoxtwogame_bibtex}
+
+\end{document}
