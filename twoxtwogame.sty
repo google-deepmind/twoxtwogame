@@ -4,6 +4,7 @@
 \RequirePackage{tikz}
 \RequirePackage{tikz-3dplot}
 \RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \RequirePackage{tikzscale}
 \RequirePackage{pgfmath-xfp}
 \RequirePackage{ifthen}
@@ -44,7 +45,7 @@
         column player first strategy label/.initial=A,
         column player second strategy label/.initial=B,
         label/.initial=,
-    }
+    }%
 }
 \@setdefaultgraphkey
 \newcommand{\@graphkey}[1]{\pgfkeysvalueof{/tikz/graph/#1}}
@@ -1059,7 +1060,7 @@
 \newif\ifnobrnames
 \newif\ifnoaxeslabels
 \newif\ifnoticklabels
-\newcommand{\setdefaultembeddingkey}{%
+\newcommand{\@setdefaultembeddingkey}{%
     \tikzset{
         embedding/.is family,
         embedding,
@@ -1083,15 +1084,15 @@
         best-response name font size/.initial=\tiny,
         no axes labels/.is if=noaxeslabels,
         no tick labels/.is if=noticklabels,
-    }
+    }%
 }
-\setdefaultembeddingkey
+\@setdefaultembeddingkey
 \newcommand{\embeddingkey}[1]{\pgfkeysvalueof{/tikz/embedding/#1}}
 
-\DeclareRobustCommand{\embedding}[1][]{%
-    \setdefaultembeddingkey%
-    \tikzset{embedding,#1} % Process Keys passed to command
-    \ifpartialtrivial
+\DeclareRobustCommand{\nontrivialembedding}[1][]{%
+    \@setdefaultembeddingkey%
+    \tikzset{embedding,#1}%
+    \ifpartialtrivial%
         \pgfmathsetlengthmacro{\axislength}{\embeddingkey{width}*0.792}% 0.9*0.88
     \else
         \pgfmathsetlengthmacro{\axislength}{\embeddingkey{width}*0.9}%
@@ -1152,8 +1153,7 @@
             \ifnobrgraphs \else \@brgraphs \fi
             \ifnobrnames \else \@brnames \fi
         \end{tikzpicture}%
-    \fi \fi
-    \setdefaultembeddingkey
+    \fi \fi%
 }
 
 
@@ -1185,7 +1185,7 @@
     #1%
 }
 
-\newcommand{\setdefaultmarginalsimplexkey}{%
+\newcommand{\@setdefaultmarginalsimplexkey}{%
     \tikzset{
         marginalsimplex/.is family,
         marginalsimplex,
@@ -1204,15 +1204,15 @@
         quiver/.initial=,
         quiver scale arrows/.initial=0.1,
         streams/.initial=,
-    }
+    }%
 }
-\setdefaultmarginalsimplexkey
+\@setdefaultmarginalsimplexkey
 \newcommand{\marginalsimplexkey}[1]{\pgfkeysvalueof{/tikz/marginalsimplex/#1}}
 
 \DeclareRobustCommand{\marginalsimplex}[1][]{%
     \tikzset{marginalsimplex,#1} % Process Keys passed to command
     \@reWidthToTargetWidth{\marginalsimplexIMPL[#1]}{\marginalsimplexkey{width}}%
-    \setdefaultmarginalsimplexkey%
+    \@setdefaultmarginalsimplexkey%
 }
 
 \DeclareRobustCommand{\marginalsimplexIMPL}[1][]{%
@@ -1311,7 +1311,7 @@
         debug name/.is if=debugname,%
         debug axes/.is if=debugaxes,%
         debug camera/.is if=debugcamera,%
-    }
+    }%
 }
 \@setdefaultpolytopekey
 \newcommand{\@polytopekey}[1]{\pgfkeysvalueof{/tikz/polytope/#1}}
@@ -1407,7 +1407,7 @@
     \tikzset{
         eqpolytope/.is family,
         eqpolytope,
-    }
+    }%
 }
 \@setdefaulteqpolytopekey
 \newcommand{\@eqpolytopekey}[1]{\pgfkeysvalueof{/tikz/eqpolytope/#1}}
@@ -1425,7 +1425,7 @@
     \pgfmathsetmacro{\sba}{\srowb * \scola}
     \pgfmathsetmacro{\sbb}{\srowb * \scolb}
 
-    \@setScaling{1.0}{1.0}{1.0}{1.0}  % Default scaling.
+    % \@setScaling{1.0}{1.0}{1.0}{1.0}  % Default scaling.
 
     \ifthenelse{\lengthtest{#2 pt = #4 pt}}{%#2 = #4
         \ifthenelse{\lengthtest{#3 pt = #5 pt}}{%#3 = #5
@@ -2977,7 +2977,7 @@ main}  % Must include main.
         label/.initial=,
         label position/.initial=right,
         size/.initial=2pt,
-    }
+    }%
 }
 \@setdefaultpointkey
 \newcommand{\@pointkey}[1]{\pgfkeysvalueof{/tikz/point/#1}}
@@ -3015,7 +3015,7 @@ main}  % Must include main.
         debug layers/.is if=debuglayers,%
         debug camera distance/.is if=debugcameradistance,%
         debug shading/.is if=debugshading,%
-    }
+    }%
 }
 \@setdefaultlinekey
 \newcommand{\@linekey}[1]{\pgfkeysvalueof{/tikz/line/#1}}

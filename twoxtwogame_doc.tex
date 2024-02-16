@@ -16,7 +16,6 @@
 
 \title{twoxtwogame Package Documentation}
 \author{Luke Marris}
-\date{May 2023}
 
 % Make a tabular column suitable for verbatim code input.
 \makeatletter
@@ -34,9 +33,7 @@
 
 \section{Functionality}
 
-2×2 normal-form games are parameterized with 8 variables which describe the payoffs received by each player. Therefore, the majority of functions in the \verb!twoxtwogame! package have 8 mandatory arguments, \verb!{a}{b}{c}...{h}!, corresponding to these variables. The first four arguments, \verb!{a}{b}{c}{d}!, are payoffs of the row player in row-wise order, and the last four arguments, \verb!{e}{f}{g}{h}!, are the payoffs of the column player also in row-wise order. These payoffs, $G$, are often represented in a tabular form, where each player has strategies A and B (Table~\ref{tab:2x2_payoffs_parameterization}). The joint strategy distribution, $\sigma$, is parameterized with four arguments, \verb!{a}{b}{c}{d}! (Table~\ref{tab:2x2_joint_parameterization}). Some commands have additional optional keyword arguments.
-
-\begin{table}[h!]
+\begin{table}[!b]
     \centering
     \begin{subtable}[t]{0.4\linewidth}
         \centering
@@ -54,6 +51,8 @@
     \caption{2×2 normal-form game function arguments.}
     \label{tab:2x2_parameterization}
 \end{table}
+
+2×2 normal-form games are parameterized with 8 variables which describe the payoffs received by each player. Therefore, the majority of functions in the \verb!twoxtwogame! package have 8 mandatory arguments, \verb!{a}{b}{c}...{h}!, corresponding to these variables. The first four arguments, \verb!{a}{b}{c}{d}!, are payoffs of the row player in row-wise order, and the last four arguments, \verb!{e}{f}{g}{h}!, are the payoffs of the column player also in row-wise order. These payoffs, $G$, are often represented in a tabular form, where each player has strategies A and B (Table~\ref{tab:2x2_payoffs_parameterization}). The joint strategy distribution, $\sigma$, is parameterized with four arguments, \verb!{a}{b}{c}{d}! (Table~\ref{tab:2x2_joint_parameterization}). Some commands have additional optional keyword arguments.
 
 \subsection{Payoffs Representations}
 
@@ -780,7 +779,7 @@ A joint distribution is a point within this simplex, with pure joint strategies 
 
 \subsection{Embeddings}
 
-The equilibrium-invariant embeddings introduced by \cite{marris2023_equilibrium_invariant_embedding_2x2_arxiv} can be visualized using the \verb!\embedding[...]! command.
+The equilibrium-invariant embeddings introduced by \cite{marris2023_equilibrium_invariant_embedding_2x2_arxiv} can be visualized using the \verb!\nontrivialembedding[...]! command.
 
 \begin{table}[t]
     \centering
@@ -813,24 +812,61 @@ The equilibrium-invariant embeddings introduced by \cite{marris2023_equilibrium_
 \end{table}
 
 \begin{figure}[t]
-    \embedding[no axes labels,no tick labels]
+    \nontrivialembedding[no axes labels,no tick labels]
     \caption{Embeddings plot.}
 \end{figure}
 
 \begin{figure}
     \centering
     \begin{subfigure}[t]{0.49\linewidth}
-        \embedding[matrix=doc_data/embedding/heatmap.dat,no axes labels,no tick labels,no best-response names]
-        \caption{Heatmap}
+        \nontrivialembedding[matrix=doc_data/embedding/heatmap.dat,no axes labels,no tick labels,no best-response names]
+        \caption{Heatmap. Data from \cite{liu2024_nfgtransformer}.}
     \end{subfigure}\hfill
     \begin{subfigure}[t]{0.49\linewidth}
-        \embedding[points=doc_data/embedding/points.dat,no axes labels,no tick labels,no best-response names]
+        \nontrivialembedding[points=doc_data/embedding/points.dat,no axes labels,no tick labels,no best-response names]
         \caption{Points}
     \end{subfigure}
 
     \caption{Embedding plots with different backgrounds.}
-    \label{fig:my_label}
+    \label{fig:embedding}
 \end{figure}
+
+\begin{figure*}[!t]
+    \centering
+
+    \begin{subfigure}[b]{0.49\linewidth}
+        \centering
+        \nontrivialembedding[width=1.0\linewidth,no axes labels,no tick labels,no best-response names]
+        \vspace{-1.0em}
+        \caption{Embedding}
+        \label{fig:example_embedding}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.49\linewidth}
+        \centering
+        \nontrivialembedding[width=1.0\linewidth,no axes labels,no tick labels,no best-response names]
+        \vspace{-1.0em}
+        \caption{Non-trivial Embedding}
+        \label{fig:example_nontrivial_embedding}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.49\linewidth}
+        \centering
+        \nontrivialembedding[width=1.0\linewidth,no axes labels,no tick labels,no best-response names]
+        \vspace{-1.0em}
+        \caption{Symmetric Embedding}
+        \label{fig:example_symmetric_embedding}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.49\linewidth}
+        \centering
+        \nontrivialembedding[width=1.0\linewidth,no axes labels,no tick labels,no best-response names]
+        \vspace{-1.0em}
+        \caption{Zero-Sum Embedding}
+        \label{fig:example_zero_sum_embedding}
+    \end{subfigure}
+
+    \caption{Embedding Visualizations.}
+    \label{fig:embedding_visualizations}
+\end{figure*}
 
 
 \section{Tips and Tricks}
@@ -842,7 +878,7 @@ Some of the figures created by this package can take time to compile, and may sl
 \begin{verbatim}
 \usepackage{tikz}
 \usetikzlibrary{external}
-\tikzexternalize[prefix=cache/,up to date check=md5]
+\tikzexternalize[prefix=cache/, up to date check=md5]
 \end{verbatim}
 
 This will sequentially build each each TikZ picture individually and cache it. Subsequent project builds will use the cache rather than rebuild the picture each time. When modifying commands, it may be necessary to clear the cache to regenerate the pictures. Some setups may require manually making the cache directory and adding a dummy file in that directory. This process may be slower on the first build run. If your build times out trying again may work (because it will reuse the pictures that were cached on the first run).
@@ -852,9 +888,7 @@ This will sequentially build each each TikZ picture individually and cache it. S
 
 If you use this package in your work, please consider citing it.
 
-\begin{verbatim}
-TODO(b/319068130): Complete this when paper is ready.
-\end{verbatim}
+TODO
 
 \section{Acknowledgements}
 
