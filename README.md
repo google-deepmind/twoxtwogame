@@ -50,7 +50,7 @@ Please cite the following announcement paper when using this package.
 
 ```tex
 @misc{marris2024_twoxtwogame,
-    TODO(b/319068130): Add when paper is released.
+    TODO
 }
 ```
 
