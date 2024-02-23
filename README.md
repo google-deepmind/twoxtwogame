@@ -44,16 +44,6 @@ equilibrium.
 For further information, please refer to the included package documentation:
 `twoxtwogame_doc.pdf` which can be built from `twoxtwogame_doc.tex`.
 
-## Citing this work
-
-Please cite the following announcement paper when using this package.
-
-```tex
-@misc{marris2024_twoxtwogame,
-    TODO
-}
-```
-
 ## License and disclaimer
 
 Copyright 2024 DeepMind Technologies Limited
