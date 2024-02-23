@@ -91,6 +91,8 @@ def main(args) -> None:
     out_dir = args.dir
     if not out_dir:
       out_dir = os.path.join(os.path.expanduser("~"), "twoxtwogame")
+    else:
+      out_dir = os.path.expanduser(out_dir)
 
     print(f"Saving archive at {out_dir}")
     shutil.make_archive(out_dir, "zip", temp_dir)
