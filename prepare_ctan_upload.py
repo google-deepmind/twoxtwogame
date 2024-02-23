@@ -37,12 +37,12 @@ _STY_FILENAME = "twoxtwogame.sty"
 _DOC_FILENAME = "twoxtwogame_doc.tex"
 _PDF_FILENAME = "twoxtwogame_doc.pdf"
 _LATEX = "pdflatex"
+_STRIP_START = "## Example Functionality\n"
+_STRIP_END = "## Installation\n"
 
-parser = argparse.ArgumentParser(description="Process some integers.")
-parser.add_argument("--dir", default=None,
-                    action="store_const", required=False,
+parser = argparse.ArgumentParser(description="Prepare CTAN package.")
+parser.add_argument("--dir", default=None, type=str, required=False,
                     help="Where to save package archive.")
-
 
 def main(args) -> None:
   twoxtwo_dir = os.path.dirname(os.path.realpath(__file__))
@@ -51,6 +51,18 @@ def main(args) -> None:
   license_path = os.path.join(twoxtwo_dir, _LICENSE_FILENAME)
   sty_path = os.path.join(twoxtwo_dir, _STY_FILENAME)
   doc_path = os.path.join(twoxtwo_dir, _DOC_FILENAME)
+  
+  # Strip images from README.
+  readme_lines = []
+  with open(readme_path, "r") as f:
+    include_line = True
+    for line in f.readlines():
+      if line == _STRIP_START:
+        include_line = False
+      elif line == _STRIP_END:
+        include_line = True
+      if include_line:
+        readme_lines.append(line)
 
   with tempfile.TemporaryDirectory() as temp_dir:
     temp_dir_ = os.path.join(temp_dir, "twoxtwogame")
@@ -69,8 +81,10 @@ def main(args) -> None:
       shutil.move(
           os.path.join(temp_latex_dir, _PDF_FILENAME),
           os.path.join(temp_dir_, _PDF_FILENAME))
+          
+    with open(os.path.join(temp_dir_, _README_FILENAME), "w") as f:
+      f.writelines(readme_lines)
 
-    shutil.copyfile(readme_path, os.path.join(temp_dir_, _README_FILENAME))
     shutil.copyfile(license_path, os.path.join(temp_dir_, _LICENSE_FILENAME))
     shutil.copyfile(sty_path, os.path.join(temp_dir_, _STY_FILENAME))
 
