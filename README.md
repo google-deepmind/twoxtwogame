@@ -6,6 +6,7 @@ scientific publications. Commands include producing graphical representations
 of 2x2 games, plotting the equilibria in 2x2 games, and game embeddings for 2x2
 games.
 
+
 ## Example Functionality
 
 ### Equilibria
@@ -25,6 +26,7 @@ games.
 
 Simply include the `twoxtwogame.sty` file in your working directory.
 
+
 ## Usage
 
 Include in the preamble the `twoxtwogame` package.
@@ -43,6 +45,22 @@ equilibrium.
 
 For further information, please refer to the included package documentation:
 `twoxtwogame_doc.pdf` which can be built from `twoxtwogame_doc.tex`.
+
+
+## Citing this package
+
+Please use the following citation when using this package:
+```
+@misc{marris2024_twoxtwogame,
+  title={Visualizing 2x2 Normal-Form Games: twoxtwogame LaTeX Package}, 
+  author={Luke Marris and Ian Gemp and Siqi Liu and Joel Z. Leibo and Georgios Piliouras},
+  year={2024},
+  eprint={2402.16985},
+  archivePrefix={arXiv},
+  primaryClass={cs.GT},
+  url={https://arxiv.org/abs/2402.16985},
+}
+```
 
 ## License and disclaimer
 
