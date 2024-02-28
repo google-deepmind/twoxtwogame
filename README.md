@@ -66,7 +66,9 @@ Please use the following citation when using this package:
 ## Contributing
 
 If considering contributoing to the package, please read CONTRIBUTING.md.
-This package is maintained on GitHub and mirrored on CTAN.
+This package is maintained on
+[GitHub](https://github.com/google-deepmind/twoxtwogame) and mirrored on
+[CTAN](https://ctan.org/pkg/twoxtwogame).
 
 
 ## License and disclaimer
