@@ -52,15 +52,22 @@ For further information, please refer to the included package documentation:
 Please use the following citation when using this package:
 ```
 @misc{marris2024_twoxtwogame,
-  title={Visualizing 2x2 Normal-Form Games: twoxtwogame LaTeX Package}, 
-  author={Luke Marris and Ian Gemp and Siqi Liu and Joel Z. Leibo and Georgios Piliouras},
-  year={2024},
-  eprint={2402.16985},
-  archivePrefix={arXiv},
-  primaryClass={cs.GT},
-  url={https://arxiv.org/abs/2402.16985},
+    title={Visualizing 2x2 Normal-Form Games: twoxtwogame LaTeX Package}, 
+    author={Luke Marris and Ian Gemp and Siqi Liu and Joel Z. Leibo and Georgios Piliouras},
+    year={2024},
+    eprint={2402.16985},
+    archivePrefix={arXiv},
+    primaryClass={cs.GT},
+    url={https://arxiv.org/abs/2402.16985},
 }
 ```
+
+
+## Contributing
+
+If considering contributoing to the package, please read CONTRIBUTING.md.
+This package is maintained on GitHub and mirrored on CTAN.
+
 
 ## License and disclaimer
 
