@@ -24,7 +24,6 @@
 \usetikzlibrary{arrows.meta,patterns,shapes,calc,positioning,external}
 \RequirePackage{amsthm, amsmath, amsfonts, amssymb, mathtools}
 \RequirePackage{etoolbox}
-\RequirePackage{bubblesort}
 
 \makeatletter
 
@@ -107,12 +106,78 @@
 
 \DeclareRobustCommand{\@playerordgraph}[5][]{%
     % Ordinal rankings.
-    \ifthenelse{\lengthtest{#2 pt = #3 pt} \OR \lengthtest{#2 pt = #4 pt} \OR \lengthtest{#2 pt = #5 pt} \OR \lengthtest{#3 pt = #4 pt} \OR \lengthtest{#3 pt = #5 pt} \OR \lengthtest{#4 pt = #5 pt}}{
-        % DO NOTHING.
-    }{
-        \doublebubblesort{{#2}{#3}{#4}{#5}}{\order}{{-- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}}}{-- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}}}{-- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}}}{-- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}}}}{\nodes}
-        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \nodes;
-    }
+    \ifthenelse{\lengthtest{#2 pt < #3 pt} \AND \lengthtest{#3 pt < #4 pt} \AND \lengthtest{#4 pt < #5 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#2 pt < #3 pt} \AND \lengthtest{#3 pt < #5 pt} \AND \lengthtest{#5 pt < #4 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#2 pt < #4 pt} \AND \lengthtest{#4 pt < #3 pt} \AND \lengthtest{#3 pt < #5 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#2 pt < #4 pt} \AND \lengthtest{#4 pt < #5 pt} \AND \lengthtest{#5 pt < #3 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#2 pt < #5 pt} \AND \lengthtest{#5 pt < #3 pt} \AND \lengthtest{#3 pt < #4 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#2 pt < #5 pt} \AND \lengthtest{#5 pt < #4 pt} \AND \lengthtest{#4 pt < #3 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#3 pt < #2 pt} \AND \lengthtest{#2 pt < #4 pt} \AND \lengthtest{#4 pt < #5 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#3 pt < #2 pt} \AND \lengthtest{#2 pt < #5 pt} \AND \lengthtest{#5 pt < #4 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#3 pt < #4 pt} \AND \lengthtest{#4 pt < #2 pt} \AND \lengthtest{#2 pt < #5 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#3 pt < #4 pt} \AND \lengthtest{#4 pt < #5 pt} \AND \lengthtest{#5 pt < #2 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#3 pt < #5 pt} \AND \lengthtest{#5 pt < #2 pt} \AND \lengthtest{#2 pt < #4 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#3 pt < #5 pt} \AND \lengthtest{#5 pt < #4 pt} \AND \lengthtest{#4 pt < #2 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#4 pt < #2 pt} \AND \lengthtest{#2 pt < #3 pt} \AND \lengthtest{#3 pt < #5 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#4 pt < #2 pt} \AND \lengthtest{#2 pt < #5 pt} \AND \lengthtest{#5 pt < #3 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#4 pt < #3 pt} \AND \lengthtest{#3 pt < #2 pt} \AND \lengthtest{#2 pt < #5 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#4 pt < #3 pt} \AND \lengthtest{#3 pt < #5 pt} \AND \lengthtest{#5 pt < #2 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#4 pt < #5 pt} \AND \lengthtest{#5 pt < #2 pt} \AND \lengthtest{#2 pt < #3 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#4 pt < #5 pt} \AND \lengthtest{#5 pt < #3 pt} \AND \lengthtest{#3 pt < #2 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#5 pt < #2 pt} \AND \lengthtest{#2 pt < #3 pt} \AND \lengthtest{#3 pt < #4 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#5 pt < #2 pt} \AND \lengthtest{#2 pt < #4 pt} \AND \lengthtest{#4 pt < #3 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#5 pt < #3 pt} \AND \lengthtest{#3 pt < #2 pt} \AND \lengthtest{#2 pt < #4 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#5 pt < #3 pt} \AND \lengthtest{#3 pt < #4 pt} \AND \lengthtest{#4 pt < #2 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#5 pt < #4 pt} \AND \lengthtest{#4 pt < #2 pt} \AND \lengthtest{#2 pt < #3 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
+    \ifthenelse{\lengthtest{#5 pt < #4 pt} \AND \lengthtest{#4 pt < #3 pt} \AND \lengthtest{#3 pt < #2 pt}}{
+        \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
+    }{}
 
     % Triple Ties.
     \ifthenelse{\lengthtest{#2 pt = #3 pt} \AND \lengthtest{#2 pt = #4 pt} \AND \lengthtest{#2 pt < #5 pt}}{
