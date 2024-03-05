@@ -36,6 +36,7 @@ _LICENSE_FILENAME = "LICENSE"
 _STY_FILENAME = "twoxtwogame.sty"
 _DOC_FILENAME = "twoxtwogame_doc.tex"
 _PDF_FILENAME = "twoxtwogame_doc.pdf"
+_BIB_FILENAME = "twoxtwogame_bibtex.bib"
 _LATEX = "pdflatex"
 _STRIP_START = "## Example Functionality\n"
 _STRIP_END = "## Installation\n"
@@ -51,6 +52,7 @@ def main(args) -> None:
   license_path = os.path.join(twoxtwo_dir, _LICENSE_FILENAME)
   sty_path = os.path.join(twoxtwo_dir, _STY_FILENAME)
   doc_path = os.path.join(twoxtwo_dir, _DOC_FILENAME)
+  bib_path = os.path.join(twoxtwo_dir, _BIB_FILENAME)
   
   # Strip images from README.
   readme_lines = []
@@ -76,7 +78,14 @@ def main(args) -> None:
           "-halt-on-error", doc_path]
       print("Building pdf first time...")
       subprocess.call(command)
+      print("Running bibtex...")
+      bib_temp_path = os.path.join(temp_latex_dir, _BIB_FILENAME)
+      shutil.copyfile(bib_path, bib_temp_path)
+      bib_command = ["bibtex", f"{os.path.splitext(_DOC_FILENAME)[0]}"]
+      subprocess.call(bib_command, cwd=temp_latex_dir)
       print("Building pdf second time...")
+      subprocess.call(command)
+      print("Building pdf third time...")
       subprocess.call(command)
       shutil.move(
           os.path.join(temp_latex_dir, _PDF_FILENAME),
@@ -85,6 +94,8 @@ def main(args) -> None:
     with open(os.path.join(temp_dir_, _README_FILENAME), "w") as f:
       f.writelines(readme_lines)
 
+    shutil.copyfile(bib_path, os.path.join(temp_dir_, _BIB_FILENAME))
+    shutil.copyfile(doc_path, os.path.join(temp_dir_, _DOC_FILENAME))
     shutil.copyfile(license_path, os.path.join(temp_dir_, _LICENSE_FILENAME))
     shutil.copyfile(sty_path, os.path.join(temp_dir_, _STY_FILENAME))
 
