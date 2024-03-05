@@ -21,7 +21,7 @@
 \RequirePackage{tikzscale}
 \RequirePackage{pgfmath-xfp}
 \RequirePackage{ifthen}
-\usetikzlibrary{arrows.meta,patterns,shapes,calc,positioning,external}
+\usetikzlibrary{arrows.meta,patterns,patterns.meta,shapes,calc,positioning,external,fillbetween}
 \RequirePackage{amsthm, amsmath, amsfonts, amssymb, mathtools}
 \RequirePackage{etoolbox}
 
@@ -88,7 +88,7 @@
         % Row player.
         \tikzset{graph,player color=\@graphkey{row player color},player x offset=\@graphkey{row player x offset},player y offset=\@graphkey{row player y offset}}%
         \@playerordgraph[#1]{#2}{#3}{#4}{#5}
-
+        
         \ifthenelse{\lengthtest{#2 pt = #3 pt} \AND \lengthtest{#3 pt = #4 pt} \AND \lengthtest{#4 pt = #5 pt} \AND \lengthtest{#6 pt = #7 pt} \AND \lengthtest{#7 pt = #8 pt} \AND \lengthtest{#8 pt = #9 pt}}{
             \fill[\@graphkey{point color}] (-\@graphkey{point offset},-\@graphkey{point offset}) circle[radius=\@graphkey{point radius}];
             \fill[\@graphkey{point color}] (-\@graphkey{point offset},+\@graphkey{point offset}) circle[radius=\@graphkey{point radius}];
@@ -227,204 +227,204 @@
     \ifthenelse{\lengthtest{#2 pt = #3 pt} \AND \lengthtest{#4 pt = #5 pt} \AND \lengthtest{#4 pt > #2 pt}}{
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #4 pt} \AND \lengthtest{#3 pt = #5 pt} \AND \lengthtest{#3 pt > #2 pt}}{
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #5 pt} \AND \lengthtest{#3 pt = #4 pt} \AND \lengthtest{#3 pt > #2 pt}}{
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #3 pt} \AND \lengthtest{#4 pt = #5 pt} \AND \lengthtest{#4 pt < #2 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #4 pt} \AND \lengthtest{#3 pt = #5 pt} \AND \lengthtest{#3 pt < #2 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #5 pt} \AND \lengthtest{#3 pt = #4 pt} \AND \lengthtest{#3 pt < #2 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
-
+    
     % High Ties
     \ifthenelse{\lengthtest{#2 pt = #3 pt} \AND \lengthtest{#3 pt > #4 pt} \AND \lengthtest{#4 pt > #5 pt}}{
         \draw[line width=\@graphkey{line width}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #3 pt} \AND \lengthtest{#3 pt > #5 pt} \AND \lengthtest{#5 pt > #4 pt}}{
         \draw[line width=\@graphkey{line width}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#2 pt = #4 pt} \AND \lengthtest{#4 pt > #3 pt} \AND \lengthtest{#3 pt > #5 pt}}{
         \draw[line width=\@graphkey{line width}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #4 pt} \AND \lengthtest{#4 pt > #5 pt} \AND \lengthtest{#5 pt > #3 pt}}{
         \draw[line width=\@graphkey{line width}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#2 pt = #5 pt} \AND \lengthtest{#5 pt > #3 pt} \AND \lengthtest{#3 pt > #4 pt}}{
         \draw[line width=\@graphkey{line width}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #5 pt} \AND \lengthtest{#5 pt > #4 pt} \AND \lengthtest{#4 pt > #3 pt}}{
         \draw[line width=\@graphkey{line width}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#3 pt = #4 pt} \AND \lengthtest{#4 pt > #2 pt} \AND \lengthtest{#2 pt > #5 pt}}{
         \draw[line width=\@graphkey{line width}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#3 pt = #4 pt} \AND \lengthtest{#4 pt > #5 pt} \AND \lengthtest{#5 pt > #2 pt}}{
         \draw[line width=\@graphkey{line width}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#3 pt = #5 pt} \AND \lengthtest{#5 pt > #2 pt} \AND \lengthtest{#2 pt > #4 pt}}{
         \draw[line width=\@graphkey{line width}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#3 pt = #5 pt} \AND \lengthtest{#5 pt > #4 pt} \AND \lengthtest{#4 pt > #2 pt}}{
         \draw[line width=\@graphkey{line width}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#4 pt = #5 pt} \AND \lengthtest{#5 pt > #2 pt} \AND \lengthtest{#2 pt > #3 pt}}{
         \draw[line width=\@graphkey{line width}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#4 pt = #5 pt} \AND \lengthtest{#5 pt > #3 pt} \AND \lengthtest{#3 pt > #2 pt}}{
         \draw[line width=\@graphkey{line width}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
-
+    
     % Low Ties
     \ifthenelse{\lengthtest{#2 pt = #3 pt} \AND \lengthtest{#3 pt < #4 pt} \AND \lengthtest{#4 pt < #5 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #3 pt} \AND \lengthtest{#3 pt < #5 pt} \AND \lengthtest{#5 pt < #4 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#2 pt = #4 pt} \AND \lengthtest{#4 pt < #3 pt} \AND \lengthtest{#3 pt < #5 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #4 pt} \AND \lengthtest{#4 pt < #5 pt} \AND \lengthtest{#5 pt < #3 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#2 pt = #5 pt} \AND \lengthtest{#5 pt < #3 pt} \AND \lengthtest{#3 pt < #4 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#2 pt = #5 pt} \AND \lengthtest{#5 pt < #4 pt} \AND \lengthtest{#4 pt < #3 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#3 pt = #4 pt} \AND \lengthtest{#4 pt < #2 pt} \AND \lengthtest{#2 pt < #5 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#3 pt = #4 pt} \AND \lengthtest{#4 pt < #5 pt} \AND \lengthtest{#5 pt < #2 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#3 pt = #5 pt} \AND \lengthtest{#5 pt < #2 pt} \AND \lengthtest{#2 pt < #4 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#3 pt = #5 pt} \AND \lengthtest{#5 pt < #4 pt} \AND \lengthtest{#4 pt < #2 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
 
     \ifthenelse{\lengthtest{#4 pt = #5 pt} \AND \lengthtest{#5 pt < #2 pt} \AND \lengthtest{#2 pt < #3 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
     \ifthenelse{\lengthtest{#4 pt = #5 pt} \AND \lengthtest{#5 pt < #3 pt} \AND \lengthtest{#3 pt < #2 pt}}{
         \draw[{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}-, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
-
+        
         \draw[line width=\@graphkey{line width}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[line width=\@graphkey{line width}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
-
+    
     % Mid Ties:
     \ifthenelse{\lengthtest{#5 pt < #2 pt} \AND \lengthtest{#2 pt = #3 pt} \AND \lengthtest{#3 pt < #4 pt}}{
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
@@ -434,7 +434,7 @@
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
-
+    
     \ifthenelse{\lengthtest{#5 pt < #2 pt} \AND \lengthtest{#2 pt = #4 pt} \AND \lengthtest{#4 pt < #3 pt}}{
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
@@ -443,7 +443,7 @@
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
-
+    
     \ifthenelse{\lengthtest{#4 pt < #2 pt} \AND \lengthtest{#2 pt = #5 pt} \AND \lengthtest{#5 pt < #3 pt}}{
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}};
@@ -452,7 +452,7 @@
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
-
+    
     \ifthenelse{\lengthtest{#5 pt < #3 pt} \AND \lengthtest{#3 pt = #4 pt} \AND \lengthtest{#4 pt < #2 pt}}{
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
@@ -461,7 +461,7 @@
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
-
+    
     \ifthenelse{\lengthtest{#4 pt < #3 pt} \AND \lengthtest{#3 pt = #5 pt} \AND \lengthtest{#5 pt < #2 pt}}{
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
@@ -470,7 +470,7 @@
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}};
     }{}
-
+    
     \ifthenelse{\lengthtest{#3 pt < #4 pt} \AND \lengthtest{#4 pt = #5 pt} \AND \lengthtest{#5 pt < #2 pt}}{
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pthree{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
         \draw[-{Latex[length=\@graphkey{arrow length},width=\@graphkey{arrow width}]}, line width=\@graphkey{line width}, \@graphkey{player color}] \@ptwo{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pfour{\@graphkey{player x offset}}{\@graphkey{player y offset}} -- \@pone{\@graphkey{player x offset}}{\@graphkey{player y offset}};
@@ -563,7 +563,7 @@
             \@graphkey{column player color},
         ] (-\@graphkey{point offset},-\@graphkey{point offset}) -- (+\@graphkey{point offset},-\@graphkey{point offset});
     }{}
-
+    
     \fill[\@graphkey{point color}] (-\@graphkey{point offset},-\@graphkey{point offset}) circle[radius=\@graphkey{point radius}];
     \fill[\@graphkey{point color}] (-\@graphkey{point offset},+\@graphkey{point offset}) circle[radius=\@graphkey{point radius}];
     \fill[\@graphkey{point color}] (+\@graphkey{point offset},-\@graphkey{point offset}) circle[radius=\@graphkey{point radius}];
@@ -602,157 +602,563 @@
     \brgraph[#1]{1}{0}{0}{0}{0}{0}{0}{0}}
 \DeclareRobustCommand{\nullbrgraph}[1][]{%
     \brgraph[#1]{0}{0}{0}{0}{0}{0}{0}{0}}
-
-
+    
+    
 \DeclareRobustCommand{\brname}[8]{%
-    \ifthenelse{\lengthtest{#3 pt > #1 pt}}{%
-        \def\rowa{01}%
-    }{%
-        \ifthenelse{\lengthtest{#3 pt < #1 pt}}{%
-            \def\rowa{10}%
-        }{%
-            \def\rowa{00}%
-        }%
-    }%
-    \ifthenelse{\lengthtest{#4 pt > #2 pt}}{%
-        \def\rowb{01}%
-    }{%
-        \ifthenelse{\lengthtest{#4 pt < #2 pt}}{%
-            \def\rowb{10}%
-        }{%
-            \def\rowb{00}%
-        }%
-    }%
-    \ifthenelse{\lengthtest{#6 pt > #5 pt}}{%
-        \def\cola{01}%
-    }{%
-        \ifthenelse{\lengthtest{#6 pt < #5 pt}}{%
-            \def\cola{10}%
-        }{%
-            \def\cola{00}%
-        }%
-    }%
-    \ifthenelse{\lengthtest{#8 pt > #7 pt}}{%
-        \def\colb{01}%
-    }{%
-        \ifthenelse{\lengthtest{#8 pt < #7 pt}}{%
-            \def\colb{10}%
-        }{%
-            \def\colb{00}%
-        }%
-    }%
-    \ifthenelse{%
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) %
-    }{Null}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) %
-    }{Dress}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) %
-    }{Horseplay}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) %
-    }{Ignorance}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) %
-    }{Dominant}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) %
-    }{Coordination}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) %
-    }{Cycle}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) %
-    }{Samaritan}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) %
-    }{Hazard}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) %
-    }{Safety}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) %
-    }{Aidos}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) %
-    }{Picnic}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) %
-    }{Daredevil}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) %
-    }{Fossick}{}%
-    \ifthenelse{%
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
-        \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
-        \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) %
-    }{Heist}{}%
+    \ifthenelse{\lengthtest{#1 pt = #3 pt}}{% BEGIN( xxx)
+        \ifthenelse{\lengthtest{#2 pt = #4 pt}}{% BEGIN(  xx)
+            \ifthenelse{\lengthtest{#5 pt = #6 pt}}{% BEGIN(   x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(    )
+                    %Equal,Equal,Equal,Equal
+                    Null
+                }{% END(    )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(   ←)
+                    %Equal,Equal,Equal,Left
+                    Dress
+                }% END(   ←)
+                {% BEGIN(   →)
+                    %Equal,Equal,Equal,Right
+                    Dress
+                }}% END(   →)
+            }{% END(   x)
+            \ifthenelse{\lengthtest{#5 pt > #6 pt}}{% BEGIN(  ←x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(  ← )
+                    %Equal,Equal,Left,Equal
+                    Dress
+                }{% END(  ← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(  ←←)
+                    %Equal,Equal,Left,Left
+                    Ignorance
+                }% END(  ←←)
+                {% BEGIN(  ←→)
+                    %Equal,Equal,Left,Right
+                    Horseplay
+                }}% END(  ←→)
+            }% END(  ←x)
+            {% BEGIN(  →x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(  → )
+                    %Equal,Equal,Right,Equal
+                    Dress
+                }{% END(  ← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(  →←)
+                    %Equal,Equal,Right,Left
+                    Horseplay
+                }% END(  →←)
+                {% BEGIN(  →→)
+                    %Equal,Equal,Right,Right
+                    Ignorance
+                }}% END(  →→)
+            }}% END(  →x)
+        }{% END(  xx)
+        \ifthenelse{\lengthtest{#2 pt > #4 pt}}{% BEGIN( ↑xx)
+            \ifthenelse{\lengthtest{#5 pt = #6 pt}}{% BEGIN( ↑ x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN( ↑  )
+                    %Equal,Up,Equal,Equal
+                    Dress
+                }{% END( ↑  )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN( ↑ ←)
+                    %Equal,Up,Equal,Left
+                    Daredevil
+                }% END( ↑ ←)
+                {% BEGIN( ↑ →)
+                    %Equal,Up,Equal,Right
+                    Heist
+                }}% END( ↑ →)
+            }{% END( ↑ x)
+            \ifthenelse{\lengthtest{#5 pt > #6 pt}}{% BEGIN( ↑←x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN( ↑← )
+                    %Equal,Up,Left,Equal
+                    Heist
+                }{% END( ↑← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN( ↑←←)
+                    %Equal,Up,Left,Left
+                    Aidos
+                }% END( ↑←←)
+                {% BEGIN( ↑←→)
+                    %Equal,Up,Left,Right
+                    Hazard
+                }}% END( ↑←→)
+            }% END( ↑←x)
+            {% BEGIN( ↑→x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN( ↑→ )
+                    %Equal,Up,Right,Equal
+                    Fossick
+                }{% END( ↑→ )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN( ↑→←)
+                    %Equal,Up,Right,Left
+                    Safety
+                }% END( ↑→←)
+                {% BEGIN( ↑→→)
+                    %Equal,Up,Right,Right
+                    Picnic
+                }}% END( ↑→→)
+            }}% END( ↑→x)
+        }% END( ↑xx)
+        {% BEGIN( ↓xx)
+            \ifthenelse{\lengthtest{#5 pt = #6 pt}}{% BEGIN( ↓ x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN( ↓  )
+                    %Equal,Down,Equal,Equal
+                    Dress
+                }{% END( ↓  )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN( ↓ ←)
+                    %Equal,Down,Equal,Left
+                    Heist
+                }% END( ↓ ←)
+                {% BEGIN( ↓ →)
+                    %Equal,Down,Equal,Right
+                    Fossick
+                }}% END( ↓ →)
+            }{% END( ↓ x)
+            \ifthenelse{\lengthtest{#5 pt > #6 pt}}{% BEGIN( ↓←x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN( ↓← )
+                    %Equal,Down,Left,Equal
+                    Daredevil
+                }{% END( ↓← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN( ↓←←)
+                    %Equal,Down,Left,Left
+                    Aidos
+                }% END( ↓←←)
+                {% BEGIN( ↓←→)
+                    %Equal,Down,Left,Right
+                    Safety
+                }}% END( ↓←→)
+            }% END( ↓←x)
+            {% BEGIN( ↓→x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN( ↓→ )
+                    %Equal,Down,Right,Equal
+                    Heist
+                }{% END( ↓→ )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN( ↓→←)
+                    %Equal,Down,Right,Left
+                    Hazard
+                }% END( ↓→←)
+                {% BEGIN( ↓→→)
+                    %Equal,Down,Right,Right
+                    Picnic
+                }}% END( ↓→→)
+            }}% END( ↓→x)
+        }}% END( ↓xx)
+    }{% END( xxx)
+    \ifthenelse{\lengthtest{#1 pt > #3 pt}}{% BEGIN(↑xxx)
+        \ifthenelse{\lengthtest{#2 pt = #4 pt}}{% BEGIN(↑ xx)
+            \ifthenelse{\lengthtest{#5 pt = #6 pt}}{% BEGIN(↑  x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↑   )
+                    %Up,Equal,Equal,Equal
+                    Dress
+                }{% END(↑   )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↑  ←)
+                    %Up,Equal,Equal,Left
+                    Heist
+                }% END(↑  ←)
+                {% BEGIN(↑  →)
+                    %Up,Equal,Equal,Right
+                    Daredevil
+                }}% END(↑  →)
+            }{% END(↑  x)
+            \ifthenelse{\lengthtest{#5 pt > #6 pt}}{% BEGIN(↑ ←x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↑ ← )
+                    %Up,Equal,Left,Equal
+                    Fossick
+                }{% END(↑ ← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↑ ←←)
+                    %Up,Equal,Left,Left
+                    Picnic
+                }% END(↑ ←←)
+                {% BEGIN(↑ ←→)
+                    %Up,Equal,Left,Right
+                    Safety
+                }}% END(↑ ←→)
+            }% END(↑ ←x)
+            {% BEGIN(↑ →x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↑ → )
+                    %Up,Equal,Right,Equal
+                    Heist
+                }{% END(↑ → )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↑ →←)
+                    %Up,Equal,Right,Left
+                    Hazard
+                }% END(↑ →←)
+                {% BEGIN(↑ →→)
+                    %Up,Equal,Right,Right
+                    Aidos
+                }}% END(↑ →→)
+            }}% END(↑ →x)
+        }{% END(↑ xx)
+        \ifthenelse{\lengthtest{#2 pt > #4 pt}}{% BEGIN(↑↑xx)
+            \ifthenelse{\lengthtest{#5 pt = #6 pt}}{% BEGIN(↑↑ x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↑↑  )
+                    %Up,Up,Equal,Equal
+                    Ignorance
+                }{% END(↑↑  )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↑↑ ←)
+                    %Up,Up,Equal,Left
+                    Aidos
+                }% END(↑↑ ←)
+                {% BEGIN(↑↑ →)
+                    %Up,Up,Equal,Right
+                    Aidos
+                }}% END(↑↑ →)
+            }{% END(↑↑ x)
+            \ifthenelse{\lengthtest{#5 pt > #6 pt}}{% BEGIN(↑↑←x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↑↑← )
+                    %Up,Up,Left,Equal
+                    Picnic
+                }{% END(↑↑← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↑↑←←)
+                    %Up,Up,Left,Left
+                    Dominant
+                }% END(↑↑←←)
+                {% BEGIN(↑↑←→)
+                    %Up,Up,Left,Right
+                    Samaritan
+                }}% END(↑↑←→)
+            }% END(↑↑←x)
+            {% BEGIN(↑↑→x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↑↑→ )
+                    %Up,Up,Right,Equal
+                    Picnic
+                }{% END(↑↑→ )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↑↑→←)
+                    %Up,Up,Right,Left
+                    Samaritan
+                }% END(↑↑→←)
+                {% BEGIN(↑↑→→)
+                    %Up,Up,Right,Right
+                    Dominant
+                }}% END(↑↑→→)
+            }}% END(↑↑→x)
+        }% END(↑↑xx)
+        {% BEGIN(↑↓xx)
+            \ifthenelse{\lengthtest{#5 pt = #6 pt}}{% BEGIN(↑↓ x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↑↓  )
+                    %Up,Down,Equal,Equal
+                    Horseplay
+                }{% END(↑↓  )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↑↓ ←)
+                    %Up,Down,Equal,Left
+                    Hazard
+                }% END(↑↓ ←)
+                {% BEGIN(↑↓ →)
+                    %Up,Down,Equal,Right
+                    Safety
+                }}% END(↑↓ →)
+            }{% END(↑↓ x)
+            \ifthenelse{\lengthtest{#5 pt > #6 pt}}{% BEGIN(↑↓←x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↑↓← )
+                    %Up,Down,Left,Equal
+                    Safety
+                }{% END(↑↓← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↑↓←←)
+                    %Up,Down,Left,Left
+                    Samaritan
+                }% END(↑↓←←)
+                {% BEGIN(↑↓←→)
+                    %Up,Down,Left,Right
+                    Coordination
+                }}% END(↑↓←→)
+            }% END(↑↓←x)
+            {% BEGIN(↑↓→x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↑↓→ )
+                    %Up,Down,Right,Equal
+                    Hazard
+                }{% END(↑↓→ )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↑↓→←)
+                    %Up,Down,Right,Left
+                    Cycle
+                }% END(↑↓→←)
+                {% BEGIN(↑↓→→)
+                    %Up,Down,Right,Right
+                    Samaritan
+                }}% END(↑↓→→)
+            }}% END(↑↓→x)
+        }}% END(↑↓xx)
+    }% END(↑xxx) 
+    {% BEGIN(↓xxx)
+        \ifthenelse{\lengthtest{#2 pt = #4 pt}}{% BEGIN(↓ xx)
+            \ifthenelse{\lengthtest{#5 pt = #6 pt}}{% BEGIN(↓  x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↓   )
+                    %Down,Equal,Equal,Equal
+                    Dress
+                }{% END(↓   )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↓  ←)
+                    %Down,Equal,Equal,Left
+                    Fossick
+                }% END(↓  ←)
+                {% BEGIN(↓  →)
+                    %Down,Equal,Equal,Right
+                    Heist
+                }}% END(↓  →)
+            }{% END(↓  x)
+            \ifthenelse{\lengthtest{#5 pt > #6 pt}}{% BEGIN(↓ ←x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↓ ← )
+                    %Down,Equal,Equal,Equal
+                    Dress
+                }{% END(↓ ← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↓ ←←)
+                    %Down,Equal,Equal,Left
+                    Picnic
+                }% END(↓ ←←)
+                {% BEGIN(↓ ←→)
+                    %Down,Equal,Equal,Right
+                    Hazard
+                }}% END(↓ ←→)
+            }% END(↓ ←x)
+            {% BEGIN(↓ →x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↓ → )
+                    %Down,Equal,Right,Equal
+                    Daredevil
+                }{% END(↓ → )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↓ →←)
+                    %Down,Equal,Right,Left
+                    Safety
+                }% END(↓ →←)
+                {% BEGIN(↓ →→)
+                    %Down,Equal,Right,Right
+                    Aidos
+                }}% END(↓ →→)
+            }}% END(↓ →x)
+        }{% END(↓ xx)
+        \ifthenelse{\lengthtest{#2 pt > #4 pt}}{% BEGIN(↓↑xx)
+            \ifthenelse{\lengthtest{#5 pt = #6 pt}}{% BEGIN(↓↑ x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↓↑  )
+                    %Down,Up,Equal,Equal
+                    Horseplay
+                }{% END(↓↑  )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↓↑ ←)
+                    %Down,Up,Equal,Left
+                    Safety
+                }% END(↓↑ ←)
+                {% BEGIN(↓↑ →)
+                    %Down,Up,Equal,Right
+                    Hazard
+                }}% END(↓↑ →)
+            }{% END(↓↑ x)
+            \ifthenelse{\lengthtest{#5 pt > #6 pt}}{% BEGIN(↓↑←x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↓↑← )
+                    %Down,Up,Left,Equal
+                    Hazard
+                }{% END(↓↑← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↓↑←←)
+                    %Down,Up,Left,Left
+                    Samaritan
+                }% END(↓↑←←)
+                {% BEGIN(↓↑←→)
+                    %Down,Up,Left,Right
+                    Cycle
+                }}% END(↓↑←→)
+            }% END(↓↑←x)
+            {% BEGIN(↓↑→x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↓↑→ )
+                    %Down,Up,Right,Equal
+                    Safety
+                }{% END(↓↑→ )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↓↑→←)
+                    %Down,Up,Right,Left
+                    Coordination
+                }% END(↓↑→←)
+                {% BEGIN(↓↑→→)
+                    %Down,Up,Right,Right
+                    Samaritan
+                }}% END(↓↑→→)
+            }}% END(↓ →x)
+        }% END(↓↑xx)
+        {% BEGIN(↓↓xx)
+            \ifthenelse{\lengthtest{#5 pt = #6 pt}}{% BEGIN(↓↓ x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↓↓  )
+                    %Down,Down,Equal,Equal
+                    Ignorance
+                }{% END(↓↓  )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↓↓ ←)
+                    %Down,Down,Equal,Left
+                    Picnic
+                }% END(↓↓ ←)
+                {% BEGIN(↓↓ →)
+                    %Down,Down,Equal,Right
+                    Picnic
+                }}% END(↓↓ →)
+            }{% END(↓↓ x)
+            \ifthenelse{\lengthtest{#5 pt > #6 pt}}{% BEGIN(↓↓←x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↓↓← )
+                    %Down,Down,Left,Equal
+                    Aidos
+                }{% END(↓↓← )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↓↓←←)
+                    %Down,Down,Left,Left
+                    Dominant
+                }% END(↓↓←←)
+                {% BEGIN(↓↓←→)
+                    %Down,Down,Left,Right
+                    Samaritan
+                }}% END(↓↓←→)
+            }% END(↓↓←x)
+            {% BEGIN(↓↓→x)
+                \ifthenelse{\lengthtest{#7 pt = #8 pt}}{% BEGIN(↓↓→ )
+                    %Down,Down,Right,Equal
+                    Aidos
+                }{% END(↓↓→ )
+                \ifthenelse{\lengthtest{#7 pt > #8 pt}}{% BEGIN(↓↓→←)
+                    %Down,Down,Right,Left
+                    Samaritan
+                }% END(↓↓→←)
+                {% BEGIN(↓↓→→)
+                    %Down,Down,Right,Right
+                    Dominant
+                }}% END(↓↓→→)
+            }}% END(↓↓→x)
+        }}% END(↓↓xx)
+    }}% END(↓xxx)
 }
+
+
+% \DeclareRobustCommand{\brnameB}[8]{%
+%     \ifthenelse{\lengthtest{#3 pt > #1 pt}}{%
+%         \def\rowa{01}%
+%     }{%
+%         \ifthenelse{\lengthtest{#3 pt < #1 pt}}{%
+%             \def\rowa{10}%
+%         }{%
+%             \def\rowa{00}%
+%         }%
+%     }%
+%     \ifthenelse{\lengthtest{#4 pt > #2 pt}}{%
+%         \def\rowb{01}%
+%     }{%
+%         \ifthenelse{\lengthtest{#4 pt < #2 pt}}{%
+%             \def\rowb{10}%
+%         }{%
+%             \def\rowb{00}%
+%         }%
+%     }%
+%     \ifthenelse{\lengthtest{#6 pt > #5 pt}}{%
+%         \def\cola{01}%
+%     }{%
+%         \ifthenelse{\lengthtest{#6 pt < #5 pt}}{%
+%             \def\cola{10}%
+%         }{%
+%             \def\cola{00}%
+%         }%
+%     }%
+%     \ifthenelse{\lengthtest{#8 pt > #7 pt}}{%
+%         \def\colb{01}%
+%     }{%
+%         \ifthenelse{\lengthtest{#8 pt < #7 pt}}{%
+%             \def\colb{10}%
+%         }{%
+%             \def\colb{00}%
+%         }%
+%     }%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) %
+%     }{Null}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) %
+%     }{Dress}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) %
+%     }{Horseplay}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{00}\) %
+%     }{Ignorance}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) %
+%     }{Dominant}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) %
+%     }{Coordination}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) %
+%     }{Cycle}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) %
+%     }{Samaritan}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) %
+%     }{Hazard}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{01}\) %
+%     }{Safety}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) %
+%     }{Aidos}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{10}\) %
+%     }{Picnic}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) %
+%     }{Daredevil}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) %
+%     }{Fossick}{}%
+%     \ifthenelse{%
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{01} \AND \equal{\rowb}{00} \AND \equal{\cola}{10} \AND \equal{\colb}{00}\) \OR %
+%         \(\equal{\rowa}{10} \AND \equal{\rowb}{00} \AND \equal{\cola}{00} \AND \equal{\colb}{10}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{10} \AND \equal{\cola}{00} \AND \equal{\colb}{01}\) \OR %
+%         \(\equal{\rowa}{00} \AND \equal{\rowb}{01} \AND \equal{\cola}{01} \AND \equal{\colb}{00}\) %
+%     }{Heist}{}%
+% }
 
 \DeclareRobustCommand{\jointgraph}[5][%
     border color=.,%
@@ -763,7 +1169,7 @@
     \begin{tikzpicture}[anchor=center]
         % Border.
         \draw[draw=\@graphkey{border color},line width=0.02em] (-0.35em,-0.35em) rectangle (0.35em,0.35em);
-
+        
         % Joint.
         \fill[fill=\@graphkey{color},opacity=#2] (-0.05em,0.05em)  rectangle (-0.3em, 0.3em);
         \fill[fill=\@graphkey{color},opacity=#3] (0.05em,0.05em)  rectangle (0.3em, 0.3em);
@@ -785,13 +1191,13 @@
         % Border.
         \draw[draw=\@graphkey{border color},line width=0.02em] (-0.35em,-0.35em) rectangle (0.35em,0.35em);
         \draw[draw=\@graphkey{column player color},line width=0.02em] (-0.35em,0.4em) -- (0.35em,0.4em);
-
+        
         % Joint.
         \fill[fill=\@graphkey{color},opacity={#2 /(#2 + #3)}] (-0.05em,0.05em)  rectangle (-0.3em, 0.3em);
         \fill[fill=\@graphkey{color},opacity={#3 /(#2 + #3)}] (0.05em,0.05em)  rectangle (0.3em, 0.3em);
         \fill[fill=\@graphkey{color},opacity={#4 /(#4 + #5)}] (-0.05em,-0.05em)  rectangle (-0.3em, -0.3em);
         \fill[fill=\@graphkey{color},opacity={#5 /(#4 + #5)}] (0.05em,-0.05em)  rectangle (0.3em, -0.3em);
-
+        
         % Marginal.
         \fill[fill=\@graphkey{row player color},opacity={#2 + #3}] (-0.4em,0.05em)  rectangle (-0.65em, 0.3em);
         \fill[fill=\@graphkey{row player color},opacity={#3 + #5}] (-0.4em,-0.05em)  rectangle (-0.65em, -0.3em);
@@ -811,13 +1217,13 @@
         % Border.
         \draw[draw=\@graphkey{border color},line width=0.02em] (-0.35em,-0.35em) rectangle (0.35em,0.35em);
         \draw[draw=\@graphkey{row player color},line width=0.02em] (-0.4em,-0.35em) -- (-0.4em,0.35em);
-
+        
         % Joint.
         \fill[fill=\@graphkey{color},opacity={#2 /(#2 + #4)}] (-0.05em,0.05em)  rectangle (-0.3em, 0.3em);
         \fill[fill=\@graphkey{color},opacity={#3 /(#3 + #5)}] (0.05em,0.05em)  rectangle (0.3em, 0.3em);
         \fill[fill=\@graphkey{color},opacity={#4 /(#2 + #4)}] (-0.05em,-0.05em)  rectangle (-0.3em, -0.3em);
         \fill[fill=\@graphkey{color},opacity={#5 /(#3 + #5)}] (0.05em,-0.05em)  rectangle (0.3em, -0.3em);
-
+        
         % Marginal.
         \fill[fill=\@graphkey{column player color},opacity={#2 + #4}] (-0.05em,0.4em)  rectangle (-0.3em, 0.65em);
         \fill[fill=\@graphkey{column player color},opacity={#3 + #5}] (0.05em,0.4em)  rectangle (0.3em, 0.65em);
@@ -836,11 +1242,11 @@
     \raisebox{-0.15em}{%
     \begin{tikzpicture}[anchor=center]
         \draw[draw=\@graphkey{border color},line width=0.02em] (-0.35em,-0.35em) rectangle (0.35em,0.35em);
-
+    
         % Marginal.
         \fill[fill=\@graphkey{row player color},opacity={#2 + #3}] (-0.4em,0.05em)  rectangle (-0.65em, 0.3em);
         \fill[fill=\@graphkey{row player color},opacity={#3 + #5}] (-0.4em,-0.05em)  rectangle (-0.65em, -0.3em);
-
+    
         \fill[fill=\@graphkey{column player color},opacity={#2 + #4}] (-0.05em,0.4em)  rectangle (-0.3em, 0.65em);
         \fill[fill=\@graphkey{column player color},opacity={#3 + #5}] (0.05em,0.4em)  rectangle (0.3em, 0.65em);
     \end{tikzpicture}%
@@ -859,24 +1265,23 @@
     \begin{tikzpicture}[anchor=center]
         % Border.
         \draw[draw=\@graphkey{border color},line width=0.02em] (-0.35em,-0.35em) rectangle (0.35em,0.35em);
-
+        
         % Joint.
         \fill[fill=\@graphkey{color},opacity=#2] (-0.05em,0.05em)  rectangle (-0.3em, 0.3em);
         \fill[fill=\@graphkey{color},opacity=#3] (0.05em,0.05em)  rectangle (0.3em, 0.3em);
         \fill[fill=\@graphkey{color},opacity=#4] (-0.05em,-0.05em)  rectangle (-0.3em, -0.3em);
         \fill[fill=\@graphkey{color},opacity=#5] (0.05em,-0.05em)  rectangle (0.3em, -0.3em);
-
+        
         % Marginal.
         \fill[fill=\@graphkey{column player color},opacity=#2+#4] (-0.05em,0.4em)  rectangle (-0.3em, 0.65em);
         \fill[fill=\@graphkey{column player color},opacity=#3+#5] (0.05em,0.4em)  rectangle (0.3em, 0.65em);
-
+        
         \fill[fill=\@graphkey{row player color},opacity=#2+#3] (-0.4em,0.05em)  rectangle (-0.65em, 0.3em);
         \fill[fill=\@graphkey{row player color},opacity=#4+#5] (-0.4em,-0.05em)  rectangle (-0.65em, -0.3em);
     \end{tikzpicture}%
 }}
 
 
-% Switch to tikzset
 \DeclareRobustCommand{\payoffstable}[9][]{%
     \@setdefaultgraphkey%
     \tikzset{
@@ -992,7 +1397,7 @@
     \addplot[color=black,opacity=0.1] coordinates {(-0.25,-1.0) (-0.25,1)};
     \addplot[color=black,opacity=0.1] coordinates {(0.25,-1.0) (0.25,1)};
     \addplot[color=black,opacity=0.1] coordinates {(0.75,-1.0) (0.75,1)};
-
+    
     % Faint boundaries.
     \addplot[color=black,opacity=0.1] coordinates {(-1.1,-0.75) (-1,-0.75)};
     \addplot[color=black,opacity=0.1] coordinates {(1,-0.75) (1.1,-0.75)};
@@ -1002,7 +1407,7 @@
     \addplot[color=black,opacity=0.1] coordinates {(1,0.25) (1.1,0.25)};
     \addplot[color=black,opacity=0.1] coordinates {(-1.1,0.75) (-1,0.75)};
     \addplot[color=black,opacity=0.1] coordinates {(1,0.75) (1.1,0.75)};
-
+    
     \addplot[color=black,opacity=0.1] coordinates {(-0.75,-1.1) (-0.75,-1)};
     \addplot[color=black,opacity=0.1] coordinates {(-0.75,1.0) (-0.75,1.1)};
     \addplot[color=black,opacity=0.1] coordinates {(-0.25,-1.1) (-0.25,-1)};
@@ -1025,40 +1430,40 @@
         draw opacity=0.0,
     ]
     coordinates {(0.25,0.25) (0.75,0.75) (-0.25,-0.75) (-0.75,-0.25)};
-
+    
     % Left equilibrium.
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-0.25,0.73) (-0.25,-0.23)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(0.75,0.23) (0.75,-0.73)};
-
+    
     % Top equilibrium.
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-0.73,0.75) (0.23,0.75)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-0.23,-0.25) (0.73,-0.25)};
-
+    
     % Right equilibrium.
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(0.25,1.0) (0.25,0.77)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(0.25,-0.27) (0.25,-1.0)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-0.75,1.0) (-0.75,0.27)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-0.75,-0.77) (-0.75,-1.0)};
-
+    
     % Bottom equilibrium.
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-1.0,0.25) (-0.27,0.25)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(0.77,0.25) (1.0,0.25)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-1.0,-0.75) (-0.77,-0.75)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(0.27,-0.75) (1.0,-0.75)};
-
+    
     % Three-equilibrium.
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(0.25,0.27) (0.25,0.75) (0.73,0.75)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(0.27,0.25) (0.75,0.25) (0.75,0.73)};
-
+    
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-0.75,-0.27) (-0.75,-0.75) (-0.27,-0.75)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-0.73,-0.25) (-0.25,-0.25) (-0.25,-0.73)};
-
+    
     % Faint stuff.
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-1.1,-0.75) (-1,-0.75)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(1,-0.75) (1.1,-0.75)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-1.1,0.25) (-1,0.25)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(1,0.25) (1.1,0.25)};
-
+    
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-0.75,-1.1) (-0.75,-1)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(-0.75,1.0) (-0.75,1.1)};
     \addplot[color=black,style=semithick,opacity=0.5] coordinates {(0.25,-1.1) (0.25,-1)};
@@ -1247,41 +1652,46 @@
 %                = targetWidth - (targetWidth + measuredWidth)
 %                = 2*targetWidth - measuredWidth
 \newsavebox{\@candidateBox}
-\newcommand{\@reWidthToTargetWidth}[2]{%
-    \pgfmathsetmacro{\@targetWidth}{#2}%
-    \pgfmathsetmacro{\@setWidth}{#2}%
-    \begin{lrbox}{\@candidateBox}{\tikzset{external/export=false}#1}\end{lrbox}%
+\newcommand{\@reWidthToTargetWidth}[3]{%
+    \pgfmathsetmacro{\@targetWidth}{#3}%
+    \pgfmathsetmacro{\@setWidth}{#3}%
+    \begin{lrbox}{\@candidateBox}{\tikzset{external/export=false}#2}\end{lrbox}%
     \pgfmathsetmacro{\@setWidth}{2*\@targetWidth-\wd\@candidateBox}%
     #1%
 }
-\newcommand{\@reScaleToTargetWidth}[2]{%
-    \pgfmathsetmacro{\@targetWidth}{#2}%
-    \pgfmathsetmacro{\@setWidth}{#2}%
-    \pgfmathsetmacro{\@setScale}{4}%
-    \begin{lrbox}{\@candidateBox}{\tikzset{external/export=false}#1}\end{lrbox}%
+\newcommand{\@reScaleToTargetWidth}[3]{%
+    \pgfmathsetmacro{\@targetWidth}{#3}%
+    \pgfmathsetmacro{\@setWidth}{#3}%
+    \pgfmathsetmacro{\@setScale}{4}% 
+    \begin{lrbox}{\@candidateBox}{\tikzset{external/export=false}#2}\end{lrbox}%
     \pgfmathsetmacro{\@setScale}{\@setScale*\@targetWidth/\wd\@candidateBox}%
     #1%
 }
 
+
+\newif\ifnocontent
 \newcommand{\@setdefaultmarginalsimplexkey}{%
     \tikzset{
-        marginalsimplex/.is family,
-        marginalsimplex,
-        width/.initial=\linewidth,
-        scale/.initial=1.0,
+        marginalsimplex/.is family,%
+        marginalsimplex,%
+        width/.initial=\linewidth,%
+        scale/.initial=1.0,%
         row player label/.initial={\footnotesize Row Player},%
         column player label/.initial={\footnotesize Column Player},%
         row player first strategy label/.initial={\footnotesize A},%
         row player second strategy label/.initial={\footnotesize B},%
         column player first strategy label/.initial={\footnotesize A},%
         column player second strategy label/.initial={\footnotesize B},%
-        points/.initial=,
-        regions/.initial=,
-        contour/.initial=,
-        heatmap/.initial=,
-        quiver/.initial=,
-        quiver scale arrows/.initial=0.1,
-        streams/.initial=,
+        points/.initial=,%
+        regions/.initial=,%
+        contour/.initial=,%
+        heatmap/.initial=,%
+        quiver/.initial=,%
+        quiver scale arrows/.initial=0.1,%
+        streams/.initial=,%
+        no content/.is if=nocontent,%
+        epsilon/.initial=0.01,%
+        samples/.initial=41,%
     }%
 }
 \@setdefaultmarginalsimplexkey
@@ -1289,7 +1699,10 @@
 
 \DeclareRobustCommand{\marginalsimplex}[1][]{%
     \tikzset{marginalsimplex,#1} % Process Keys passed to command
-    \@reWidthToTargetWidth{\marginalsimplexIMPL[#1]}{\marginalsimplexkey{width}}%
+    \@reWidthToTargetWidth{%
+        \marginalsimplexIMPL[#1]}{%
+        \marginalsimplexIMPL[#1,no content]}{%
+        \marginalsimplexkey{width}}%
     \@setdefaultmarginalsimplexkey%
 }
 
@@ -1324,55 +1737,57 @@
             },
             axis on top,
             after end axis/.code={
-                \path (axis cs:0,0)
+                \path (axis cs:0,0) 
                     node [anchor=east] {\marginalsimplexkey{row player second strategy label}}
                     node [anchor=north] {\marginalsimplexkey{column player second strategy label}};
-                \path (axis cs:0,1)
+                \path (axis cs:0,1) 
                     node [anchor=east] {\marginalsimplexkey{row player first strategy label}};
-                \path (axis cs:1,0)
+                \path (axis cs:1,0) 
                     node [anchor=north] {\marginalsimplexkey{column player first strategy label}};
             },
             view={0}{90},
         ]
             \tikzset{marginalsimplex,#1}
-            \ifthenelse{\equal{\marginalsimplexkey{quiver}}{}}{}{%
-                % First (Row) player is y[j], v[j,:]
-                % Second (Column) player is x[j], u[:,i]
-                % u and v are indexed [y,x]
-                \addplot[
-                    quiver={
-                        u=\thisrow{u},
-                        v=\thisrow{v},
-                        w=1,% 3 looked strange...
-                        scale arrows=\marginalsimplexkey{quiver scale arrows},
-                    },
-                    -stealth,
-                    black,
-                ] table {\marginalsimplexkey{quiver}};
-            }
-            \ifthenelse{\equal{\marginalsimplexkey{heatmap}}{}}{}{%
-                \addplot[
-                    matrix plot*,%
-                    point meta=explicit,%
-                ] file[]{\marginalsimplexkey{heatmap}};
-            }
-            \ifthenelse{\equal{\marginalsimplexkey{points}}{}}{}{%
-                \addplot[%
-                    scatter,%
-                    only marks,%
-                    mark size=0.1em,%
-                    scatter src=explicit,%
-                    scatter/use mapped color={draw opacity=0,fill=mapped color},%
-                ] table[x=x,y=y,meta=c]{\marginalsimplexkey{points}};
-            }
+            \ifnocontent \else 
+                \ifthenelse{\equal{\marginalsimplexkey{quiver}}{}}{}{%
+                    % First (Row) player is y[j], v[j,:]
+                    % Second (Column) player is x[j], u[:,i]
+                    % u and v are indexed [y,x]
+                    \addplot[
+                        quiver={
+                            u=\thisrow{u},
+                            v=\thisrow{v},
+                            w=1,% 3 looked strange...
+                            scale arrows=\marginalsimplexkey{quiver scale arrows},
+                        },
+                        -stealth,
+                        black,
+                    ] table {\marginalsimplexkey{quiver}};
+                }
+                \ifthenelse{\equal{\marginalsimplexkey{heatmap}}{}}{}{%
+                    \addplot[
+                        matrix plot*,%
+                        point meta=explicit,%
+                    ] file[]{\marginalsimplexkey{heatmap}};
+                }
+                \ifthenelse{\equal{\marginalsimplexkey{points}}{}}{}{%
+                    \addplot[%
+                        scatter,%
+                        only marks,%
+                        mark size=0.1em,%
+                        scatter src=explicit,%
+                        scatter/use mapped color={draw opacity=0,fill=mapped color},%
+                    ] table[x=x,y=y,meta=c]{\marginalsimplexkey{points}};
+                }
+            \fi
         \end{axis}%
     \end{tikzpicture}%
 }
 
-
 \newif\ifdebugname
 \newif\ifdebugaxes
 \newif\ifdebugcamera
+\newif\ifnoequilibria
 \newcommand{\@setdefaultpolytopekey}{%
     \tikzset{
         polytope/.is family,
@@ -1389,6 +1804,8 @@
         debug name/.is if=debugname,%
         debug axes/.is if=debugaxes,%
         debug camera/.is if=debugcamera,%
+        no equilibria/.is if=noequilibria,%
+        segments/.initial=6,%
     }%
 }
 \@setdefaultpolytopekey
@@ -1407,7 +1824,10 @@
 
 \DeclareRobustCommand{\polytope}[9][]{%
     \tikzset{polytope,#1}%
-    \@reScaleToTargetWidth{\polytopeIMPL[#1]{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}}{\@polytopekey{width}}%
+    \@reScaleToTargetWidth{%
+        \polytopeIMPL[#1]{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}}{%
+        \polytopeIMPL[#1,no equilibria]{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}}{%
+        \@polytopekey{width}}%
     \@setdefaultpolytopekey%
 }
 
@@ -1419,24 +1839,24 @@
     ]%
         % Process keys here to allow caching to update.
         \tikzset{polytope,#1}
-
+    
         % Simplex points.
         \pgfmathsetlengthmacro{\ox}{{0.0}}
         \pgfmathsetlengthmacro{\oy}{{0.0}}
         \pgfmathsetlengthmacro{\oz}{{0.0}}
-
+        
         \pgfmathsetlengthmacro{\aax}{{ -0.5}}
         \pgfmathsetlengthmacro{\aay}{{-sqrt(3)/6}}
         \pgfmathsetlengthmacro{\aaz}{{-sqrt(6)/12}}
-
+        
         \pgfmathsetlengthmacro{\abx}{{0.5}}
         \pgfmathsetlengthmacro{\aby}{{-sqrt(3)/6}}
         \pgfmathsetlengthmacro{\abz}{{-sqrt(6)/12}}
-
+        
         \pgfmathsetlengthmacro{\bax}{{0.0}}
         \pgfmathsetlengthmacro{\bay}{{sqrt(3)/3}}
         \pgfmathsetlengthmacro{\baz}{{-sqrt(6)/12}}
-
+        
         \pgfmathsetlengthmacro{\bbx}{{0.0}}
         \pgfmathsetlengthmacro{\bby}{{0.0}}
         \pgfmathsetlengthmacro{\bbz}{{sqrt(6)/4}}
@@ -1447,7 +1867,7 @@
         \@perspectiveline[line width scale=0.4, layer scale=1.1]{\abx}{\aby}{\abz}{\bax}{\bay}{\baz}
         \@perspectiveline[line width scale=0.4, layer scale=1.1]{\abx}{\aby}{\abz}{\bbx}{\bby}{\bbz}
         \@perspectiveline[line width scale=0.4, layer scale=1.1]{\bax}{\bay}{\abz}{\bbx}{\bby}{\bbz}
-
+        
         \ifdebugaxes
             \draw[thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
             \draw[thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
@@ -1471,12 +1891,14 @@
             color=black,size=0pt,%
             label=\@polytopekey{row player second strategy label}\@polytopekey{column player second strategy label},%
         ]{0}{0}{0}{1}
-
+        
         \ifdebugcamera
             \@cameraline{}
         \else \fi
-
-        \eqpolytope[]{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}
+        
+        \ifnoequilibria \else 
+            \eqpolytope[]{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}
+        \fi
     \end{tikzpicture}%
 }
 
@@ -1491,20 +1913,20 @@
 \newcommand{\@eqpolytopekey}[1]{\pgfkeysvalueof{/tikz/eqpolytope/#1}}
 \DeclareRobustCommand{\eqpolytope}[9][]{%
     \tikzset{eqpolytope,#1}
-
+    
     % Scale macros.
     \pgfmathsetmacro{\scola}{{abs(#2 - #4)}}  % scale col first, |g_1^{A-B,A}|
     \pgfmathsetmacro{\scolb}{{abs(#3 - #5)}}  % scale col second, |g_1^{A-B,B}|
     \pgfmathsetmacro{\srowa}{{abs(#6 - #7)}}  % scale col first, |g_2^{A,A-B}|
     \pgfmathsetmacro{\srowb}{{abs(#8 - #9)}}  % scale col second, |g_2^{B,A-B}|
-
+    
     \pgfmathsetmacro{\saa}{\srowa * \scola}
     \pgfmathsetmacro{\sab}{\srowa * \scolb}
     \pgfmathsetmacro{\sba}{\srowb * \scola}
     \pgfmathsetmacro{\sbb}{\srowb * \scolb}
-
+    
     % \@setScaling{1.0}{1.0}{1.0}{1.0}  % Default scaling.
-
+    
     \ifthenelse{\lengthtest{#2 pt = #4 pt}}{%#2 = #4
         \ifthenelse{\lengthtest{#3 pt = #5 pt}}{%#3 = #5
             \ifthenelse{\lengthtest{#6 pt = #7 pt}}{%#6 = #7
@@ -1514,7 +1936,7 @@
                     \ifdebugname
                         \point[label=eeee]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{1}{0}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{1}{0}
@@ -1522,7 +1944,7 @@
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{0}{0}{1}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{0}{0}{0}{1}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{1}{0}{0}{0}{0}{1}
-
+                    
                     % NE
                     \def\n{6}
                     \foreach \i in {0,...,\n} {
@@ -1535,7 +1957,7 @@
                     \ifdebugname
                         \point[label=eeeg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{1}{0}{0}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{1}{0}{1}{0}{0}{0}
@@ -1548,7 +1970,7 @@
                     \ifdebugname
                         \point[label=eeel]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{1}{0}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{1}{0}{0}
@@ -1565,7 +1987,7 @@
                     \ifdebugname
                         \point[label=eege]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{1}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{0}{1}{0}
@@ -1579,7 +2001,7 @@
                     \ifdebugname
                         \point[label=eegg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{1}{0}
                     % NE
@@ -1589,10 +2011,10 @@
                     \ifdebugname
                         \point[label={eegl}]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0.5}{0}{0.5}{0}
@@ -1617,7 +2039,7 @@
                     \@setBaryPointsA{0}{0}{0}{1}
                     \@setBaryPointsB{0.5}{0.0}{0.5}{0.0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0.5}{0}{0.5}{0}
@@ -1638,7 +2060,7 @@
                     \ifdebugname
                         \point[label=eele]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{0}{1}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{1}{0}{0}
@@ -1653,10 +2075,10 @@
                     \ifdebugname
                         \point[label=eelg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     %
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0.5}{0}{0.5}
@@ -1673,11 +2095,11 @@
                     \@setBaryPointsA{0}{0.5}{0}{0.5}
                     \@setBaryPointsB{0}{0}{1}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0.5}{0}{0.5}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0.5}{0}{0.5}
@@ -1696,7 +2118,7 @@
                     \ifdebugname
                         \point[label=eell]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{0}{0}{0}{1}
                     % NE
@@ -1713,7 +2135,7 @@
                     \ifdebugname
                         \point[label=egee]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{1}{0}{1}{0}{0}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{1}{0}{0}{0}
@@ -1727,7 +2149,7 @@
                     \ifdebugname
                         \point[label=egeg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{1}{0}{0}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{1}{0}{1}{0}{0}{0}
@@ -1741,7 +2163,7 @@
                     \ifdebugname
                         \point[label=egel]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{1}{0}{0}
                     % NE
@@ -1755,7 +2177,7 @@
                     \ifdebugname
                         \point[label=egge]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{1}{0}
                     % NE
@@ -1766,7 +2188,7 @@
                     \ifdebugname
                         \point[label=eggg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{1}{0}
                     % NE
@@ -1776,10 +2198,10 @@
                     \ifdebugname
                         \point[label=eggl]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0.5}{0}{0.5}{0}
@@ -1793,7 +2215,7 @@
                     \ifdebugname
                         \point[label=egle]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{0}{0}{1}{0}
                     % NE
@@ -1805,35 +2227,35 @@
                     \ifdebugname
                         \point[label=eglg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@setBaryPointsB{0.5}{0}{0.5}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0}{1}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0.5}{0}{0.5}{0}
                     \@setBaryPointsB{0}{1}{0}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@setBaryPointsB{0.5}{0}{0.5}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ne color},line style=dotted]
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{1}{0}{0}
                 }{%#8 < #9
                     % egll
                     \ifdebugname
                         \point[label=egll]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{1}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{1}{0}{0}%(C)CE
                 }
@@ -1847,7 +2269,7 @@
                     \ifdebugname
                         \point[label=elee]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{1}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{0}{1}{0}
@@ -1861,7 +2283,7 @@
                     \ifdebugname
                         \point[label=eleg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{1}{0}
                     % NE
@@ -1871,10 +2293,10 @@
                     \ifdebugname
                         \point[label=elel]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{0}{1}
-
+                    
                     % NE
                     \point[color=\@polytopekey{ne color},size=3pt]{1}{0}{0}{0}
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{0}{1}
@@ -1887,7 +2309,7 @@
                     \ifdebugname
                         \point[label=elge]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{1}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{0}{1}{0}
@@ -1901,7 +2323,7 @@
                     \ifdebugname
                         \point[label=llgg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{1}{0}
                     % NE
@@ -1911,24 +2333,24 @@
                     \ifdebugname
                         \point[label=elgl]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0.5}{0}{0.5}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ne color},line style=dotted]
-
+                    
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0}{0}{0}{1}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0.5}{0}{0.5}{0}
                     \@setBaryPointsB{0}{0}{0}{1}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{0}{1}
                 }
@@ -1940,7 +2362,7 @@
                     \ifdebugname
                         \point[label=elle]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{1}{0}{0}{0}{0}{1}
                     % NE
@@ -1951,10 +2373,10 @@
                     \ifdebugname
                         \point[label=ellg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@setBaryPointsB{0}{0.5}{0.5}{0}
@@ -1965,7 +2387,7 @@
                     \ifdebugname
                         \point[label=elll]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{0}{1}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{0}{1}%(C)CE
                 }
@@ -1983,7 +2405,7 @@
                     \ifdebugname
                         \point[label=geee]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{1}{0}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{1}{0}{0}
@@ -1998,7 +2420,7 @@
                     \ifdebugname
                         \point[label=geeg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{1}{0}{0}
                     % NE
@@ -2008,7 +2430,7 @@
                     \ifdebugname
                         \point[label=geel]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{1}{0}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{1}{0}{0}
@@ -2025,10 +2447,10 @@
                     \ifdebugname
                         \point[label=gege]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{0}{0}{1}
-
+                    
                     % NE
                     \point[color=\@polytopekey{ne color},size=3pt]{1}{0}{0}{0}
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{0}{1}
@@ -2038,7 +2460,7 @@
                     \ifdebugname
                         \point[label=gegg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{1}{0}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{1}{0}{0}{0}%(C)CE
                 }{%#8 < #9
@@ -2046,24 +2468,24 @@
                     \ifdebugname
                         \point[label=gegl]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{0}{0}{0}{1}
                     \@setBaryPointsB{0}{0.5}{0}{0.5}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ne color},line style=dotted]
-
+                    
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0}{0}{0}{1}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{0.5}{0}{0.5}
                     \@setBaryPointsB{1}{0}{0}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \point[color=\@polytopekey{ne color},size=3pt]{1}{0}{0}{0}
                 }
@@ -2075,7 +2497,7 @@
                     \ifdebugname
                         \point[label=gele]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{0}{0}{0}{1}
                     % NE
@@ -2086,10 +2508,10 @@
                     \ifdebugname
                         \point[label=gelg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0.5}{0}{0.5}
@@ -2101,7 +2523,7 @@
                     \ifdebugname
                         \point[label=gell]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{0}{0}{0}{1}
                     % NE
@@ -2118,7 +2540,7 @@
                     \ifdebugname
                         \point[label=ggee]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{1}{0}{0}
                     % NE
@@ -2130,7 +2552,7 @@
                     \ifdebugname
                         \point[label=ggeg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{1}{0}{0}
                     % NE
@@ -2141,7 +2563,7 @@
                     \ifdebugname
                         \point[label=ggel]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{1}{0}{0}{0}{0}{1}{0}{0}
                     % NE
@@ -2155,8 +2577,8 @@
                     \ifdebugname
                         \point[label=ggge]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
-
+                    
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{1}{0}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{1}{0}{0}{0}%(C)CE
                 }{
@@ -2165,7 +2587,7 @@
                     \ifdebugname
                         \point[label=gggg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{1}{0}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{1}{0}{0}{0}%(C)CE
                 }{%#8 < #9
@@ -2173,7 +2595,7 @@
                     \ifdebugname
                         \point[label=gggl]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{1}{0}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{1}{0}{0}{0}%(C)CE
                 }
@@ -2184,7 +2606,7 @@
                     \ifdebugname
                         \point[label=ggle]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{1}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{1}{0}{0}%(C)CE
                 }{
@@ -2193,7 +2615,7 @@
                     \ifdebugname
                         \point[label=gglg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{1}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{1}{0}{0}%(C)CE
                 }{%#8 < #9
@@ -2201,7 +2623,7 @@
                     \ifdebugname
                         \point[label=ggll]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{1}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{1}{0}{0}%(C)CE
                 }
@@ -2215,10 +2637,10 @@
                     \ifdebugname
                         \point[label=glee]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0.5}{0.5}{0}{0}
@@ -2243,7 +2665,7 @@
                     \@setBaryPointsA{0}{0}{0}{1}
                     \@setBaryPointsB{0.5}{0.5}{0}{0.0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0.5}{0.5}{0}{0}
@@ -2263,10 +2685,10 @@
                     \ifdebugname
                         \point[label=gleg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0.5}{0.5}{0}{0}
@@ -2277,24 +2699,24 @@
                     \ifdebugname
                         \point[label=glel]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0.5}{0.5}{0}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ne color},line style=dotted]
-
+                    
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0}{0}{0}{1}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0.5}{0.5}{0}{0}
                     \@setBaryPointsB{0}{0}{0}{1}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{0}{1}
                 }
@@ -2306,24 +2728,24 @@
                     \ifdebugname
                         \point[label=glge]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{0}{0}{0}{1}
                     \@setBaryPointsB{0}{0}{0.5}{0.5}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ne color},line style=dotted]
-
+                    
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0}{0}{0}{1}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{0}{0.5}{0.5}
                     \@setBaryPointsB{1}{0}{0}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \point[color=\@polytopekey{ne color},size=3pt]{1}{0}{0}{0}
                 }{
@@ -2332,7 +2754,7 @@
                     \ifdebugname
                         \point[label=glgg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{1}{0}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{1}{0}{0}{0}%(C)CE
                 }{%#8 < #9
@@ -2341,10 +2763,10 @@
                     \ifdebugname
                         \point[label=glgl]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\saa}{\sab}{\sba}{\sbb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{0.25}{0.25}{0.25}{0.25}
                     \@setBaryPointsB{1/3}{0}{1/3}{1/3}
@@ -2381,7 +2803,7 @@
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@setBaryPointsB{0}{0}{0}{1}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{1}{0}{0}{0}
                     \@scaledPointA[color=\@polytopekey{ne color},size=3pt]
@@ -2397,10 +2819,10 @@
                     \ifdebugname
                         \point[label=glle]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{0}{0}{0}{1}
                     \@setBaryPointsB{0}{0}{0.5}{0.5}
@@ -2413,7 +2835,7 @@
                     \ifdebugname
                         \point[label=gllg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % NE and (C)CE
                     \@setScaling{\saa}{\sab}{\sba}{\sbb}
                     \@setBaryPointsA{0.25}{0.25}{0.25}{0.25}
@@ -2424,7 +2846,7 @@
                     \ifdebugname
                         \point[label=glll]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{0}{1}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{0}{1}%(C)CE
                 }
@@ -2441,7 +2863,7 @@
                     \ifdebugname
                         \point[label=leee]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{1}{0}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{0}{1}{0}
@@ -2455,7 +2877,7 @@
                     \ifdebugname
                         \point[label=leeg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{0}{0}{1}{0}
                     % NE
@@ -2467,7 +2889,7 @@
                     \ifdebugname
                         \point[label=leel]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{0}{0}{0}{1}
                     % NE
@@ -2482,7 +2904,7 @@
                     \ifdebugname
                         \point[label=lege]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{1}{0}{0}{0}{0}{1}
                     % NE
@@ -2493,7 +2915,7 @@
                     \ifdebugname
                         \point[label=legg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{1}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{1}{0}%(C)CE
                 }{%#8 < #9
@@ -2501,10 +2923,10 @@
                     \ifdebugname
                         \point[label=legl]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{0}{0}{0}{1}
                     \@setBaryPointsB{0}{0.5}{0}{0.5}
@@ -2518,7 +2940,7 @@
                     \ifdebugname
                         \point[label=lele]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{1}{0}{0}
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{0}{1}{0}{0}{1}{0}
@@ -2532,28 +2954,28 @@
                     \ifdebugname
                         \point[label=lelg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\srowa}{\srowa}{\srowb}{\srowb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@setBaryPointsB{0}{0.5}{0}{0.5}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0}{1}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{0.5}{0}{0.5}
                     \@setBaryPointsB{0}{1}{0}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0.5}{0}{0.5}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ne color},line style=dotted]
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{1}{0}
                 }{%#8 < #9
                     % lell
@@ -2561,7 +2983,7 @@
                     \ifdebugname
                         \point[label=lell]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{1}{0}{0}{0}{0}{0}{1}
                     % NE
@@ -2579,10 +3001,10 @@
                     \ifdebugname
                         \point[label=lgee]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@setBaryPointsB{0}{0}{0.5}{0.5}
@@ -2599,11 +3021,11 @@
                     \@setBaryPointsA{0}{0}{0.5}{0.5}
                     \@setBaryPointsB{0}{1}{0}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@setBaryPointsB{0.5}{0.5}{0}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@setBaryPointsB{0}{0}{0.5}{0.5}
@@ -2622,39 +3044,39 @@
                     \ifdebugname
                         \point[label=lgeg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0.5}{0.5}{0}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0}{1}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0.5}{.5}{0}{0}
                     \@setBaryPointsB{0}{0}{1}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0.5}{0.5}{0}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ne color},line style=dotted]
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{1}{0}
-
+                    
                 }{%#8 < #9
                     % lgel
                     \ifdebugname
                         \point[label=lgel]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0.5}{0.5}{0}{0}
@@ -2669,10 +3091,10 @@
                     \ifdebugname
                         \point[label=lgge]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE / NE Edges.
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@setBaryPointsB{0}{0}{0.5}{0.5}
@@ -2684,7 +3106,7 @@
                     \ifdebugname
                         \point[label=lggg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{1}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{1}{0}%(C)CE
                 }{%#8 < #9
@@ -2693,7 +3115,7 @@
                     \ifdebugname
                         \point[label=lggl]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % NE
                     \@setScaling{\saa}{\sab}{\sba}{\sbb}
                     \@setBaryPointsA{0.25}{0.25}{0.25}{0.25}
@@ -2707,28 +3129,28 @@
                     \ifdebugname
                         \point[label=lgle]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\scola}{\scolb}{\scola}{\scolb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0}{0.5}{0.5}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0}{1}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     \@setBaryPointsA{0}{0}{0.5}{0.5}
                     \@setBaryPointsB{0}{0}{1}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@setBaryPointsB{0}{0}{0.5}{0.5}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ne color},line style=dotted]
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{1}{0}{0}
                 }{
                 \ifthenelse{\lengthtest{#8 pt > #9 pt}}{%#8 > #9
@@ -2737,10 +3159,10 @@
                     \ifdebugname
                         \point[label=lglg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % Scaling.
                     \@setScaling{\saa}{\sab}{\sba}{\sbb}
-
+                    
                     % (C)CE
                     \@setBaryPointsA{0.25}{0.25}{0.25}{0.25}
                     \@setBaryPointsB{0}{1/3}{1/3}{1/3}
@@ -2777,14 +3199,14 @@
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@setBaryPointsB{0}{0}{1}{0}
                     \@scaledBaryPerspectiveLineAB[color=\@polytopekey{ce color}]
-
+                    
                     % NE
                     \@setBaryPointsA{0}{1}{0}{0}
                     \@scaledPointA[color=\@polytopekey{ne color},size=3pt]
-
+                    
                     \@setBaryPointsA{0}{0}{1}{0}
                     \@scaledPointA[color=\@polytopekey{ne color},size=3pt]
-
+                    
                     \@setBaryPointsA{0.25}{0.25}{0.25}{0.25}
                     \@scaledPointA[color=\@polytopekey{ne color},size=3pt]
                 }{%#8 < #9
@@ -2792,7 +3214,7 @@
                     \ifdebugname
                         \point[label=lgll]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{1}{0}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{1}{0}{0}%(C)CE
                 }
@@ -2807,7 +3229,7 @@
                     \ifdebugname
                         \point[label=llee]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{1}{0}{0}{0}{0}{1}
                     % NE
@@ -2818,14 +3240,14 @@
                     \ifdebugname
                         \point[label=lleg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{1}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{1}{0}%(C)CE
                 }{%#8 < #9
                     % llel
                     \ifdebugname
                     \point[label=llel]{0.333}{0.333}{0.333}{0.333}
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{0}{1}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{0}{1}%(C)CE
                 }
@@ -2838,7 +3260,7 @@
                     \ifdebugname
                         \point[label=llge]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{1}{0}{0}{0}{0}{1}
                     % NE
@@ -2849,7 +3271,7 @@
                     \ifdebugname
                         \point[label=llgg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{1}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{1}{0}%(C)CE
                 }{%#8 < #9
@@ -2857,7 +3279,7 @@
                     \ifdebugname
                         \point[label=llgl]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{0}{1}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{0}{1}%(C)CE
                 }
@@ -2869,7 +3291,7 @@
                     \ifdebugname
                         \point[label=llle]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     % (C)CE
                     \@baryperspectiveline[color=\@polytopekey{ce color}]{0}{0}{1}{0}{0}{0}{0}{1}
                     % NE
@@ -2880,7 +3302,7 @@
                     \ifdebugname
                         \point[label=lllg]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{1}{0}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{1}{0}%(C)CE
                 }{%#8 < #9
@@ -2888,8 +3310,8 @@
                     \ifdebugname
                         \point[label=llll]{0.333}{0.333}{0.333}{0.333}
                     \else \fi
-
-
+                    
+                    
                     \point[color=\@polytopekey{ne color},size=3pt]{0}{0}{0}{1}%NE
                     \point[color=\@polytopekey{ce color},size=2pt]{0}{0}{0}{1}%(C)CE
                 }
@@ -3103,11 +3525,11 @@ main}  % Must include main.
     \foreach \i [evaluate=\i] in {1,...,\@linekey{segments}} {
         \pgfmathsetlengthmacro{\f}{{(\i - 1)/\@linekey{segments}}}
         \pgfmathsetlengthmacro{\s}{{(\i)/\@linekey{segments}}}
-
+        
         \pgfmathsetlengthmacro{\xb}{{#2*\f+(1-\f)*#5}}
         \pgfmathsetlengthmacro{\yb}{{#3*\f+(1-\f)*#6}}
         \pgfmathsetlengthmacro{\zb}{{#4*\f+(1-\f)*#7}}
-
+        
         \pgfmathsetlengthmacro{\xe}{{#2*\s+(1-\s)*#5}}
         \pgfmathsetlengthmacro{\ye}{{#3*\s+(1-\s)*#6}}
         \pgfmathsetlengthmacro{\ze}{{#4*\s+(1-\s)*#7}}
@@ -3119,18 +3541,18 @@ main}  % Must include main.
         \pgfmathsetlengthmacro{\sxm}{\xm * \@linekey{layer scale}}
         \pgfmathsetlengthmacro{\sym}{\ym * \@linekey{layer scale}}
         \pgfmathsetlengthmacro{\szm}{\zm * \@linekey{layer scale}}
-
+        
         % Scaled camera distance for scaled layers.
         \@setcameradistance{\sxm}{\sym}{\szm}{\@polytopekey{rotate x}}{\@polytopekey{rotate z}}{0.8}
         % Magic constant here to scale to integer layers.
         \pgfmathparse{{int(round(50 * \cd - 20))}}
         \edef\layer{\pgfmathresult}
         \edef\layername{layer\layer}
-
+        
         % Real camera distance.
         \@setcameradistance{\xm}{\ym}{\zm}{\@polytopekey{rotate x}}{\@polytopekey{rotate z}}{0.8}
         \pgfmathsetlengthmacro{\lw}{{\@linekey{line width scale}/\cd}}
-
+        
         % Shading magic constants.
         \pgfmathparse{{int(round(120 - 50 * \cd))}}
         \edef\shading{\pgfmathresult}
